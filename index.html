@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            #searchBar {
+                width: auto;
+                height: auto;
+                box-sizing: border-box;
+                background-color: white;
+            }
+            #login {
+                position: relative;
+                padding-right: auto;
+            }
+            .MenuBar {
+                padding: 10px;
+                background: black;
+                width: auto;
+                color: floralwhite;
+                align-content: center;
+            }
+            .bottomBar {
+                background: black;
+                height: 100px;
+                width: auto;
+                color: floralwhite;
+                align-content: center;
+                text-align: center;
+            }
+            ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+            li {
+                display: inline;
+            }
+            li a {
+                display: inline;
+                color: floralwhite;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+            li a:hover {
+                background-color: gray;
+            }
+        </style>
+    </head>
+    <body> 
+        <img id="logo" src="FoodiLogo.png" alt="Foodi Logo" width = "100" height = "100">
+        <div class="MenuBar">
+            <ul>
+                <li><a href="login.html">Account</a></li>
+                <li><a href="login.html">Drinks</a></li>
+                <li><a href="login.html">Appetizers</a></li>
+                <li><a href="login.html">Entrees</a></li>
+                <li><a href="login.html">Desserts</a></li>
+                <li><input id = "searchBar" name="search" type = text placeholder="Search for a recipe..."></li>
+                <li><a id="login" href="login.html">Login</a></li>
+            </ul>
+        </div>
+        <div class ="featured">
+            <h3>Featured Recipes</h3>
+            <ul>
+                <li><img></li>
+            </ul>    
+        </div>
+        <div class = "extras">
+            <h3>More content</h3>
+        </div>
+        <div class= "bottomBar">
+            <p>Foodi</p>
+            <p>A product of Hooli Software Solutions</p>
+            <p>2019</p>
+        </div>
+    </body>
+</html>
