@@ -16,7 +16,7 @@ FoodItem {
 	"prepTime" : "45min",
 	"meal" : "BLD",
 }
-FoodItem { 
+Appetizer { 
 	"id" : "-1",
 	"name" : "null",
 	"rank" : "0",

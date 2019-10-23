@@ -1,7 +1,7 @@
 
 public class FoodItem {
 	//=================== Variables
-	private int id;
+	private int id;		//line number in text File
 	private String name;
 	private int rank;
 	private int calories;
@@ -13,6 +13,10 @@ public class FoodItem {
 	//set ID to -1 so we can catch errors
 	public FoodItem () {
 		this(-1, null, 0, 0, null, null, null);
+	}
+	//Constructor for the Form.  ID will be determined by dbManager class
+	public FoodItem (String name, int rank, int calories, String recipe, String prepTime, String meal) {
+		this(-1, name, rank, calories, recipe, prepTime, meal);
 	}
 	public FoodItem (int id, String name, int rank, int calories, String recipe, String prepTime, String meal) {
 		setId(id);
