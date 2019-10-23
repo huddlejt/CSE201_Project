@@ -1,0 +1,18 @@
+FoodItem { 
+	"id" : "-1",
+	"name" : "null",
+	"rank" : "0",
+	"calories" : "0",
+	"recipe" : "null",
+	"prepTime" : "null",
+	"meal" : "null",
+}
+FoodItem { 
+	"id" : "1",
+	"name" : "bread",
+	"rank" : "1",
+	"calories" : "11",
+	"recipe" : "just bread",
+	"prepTime" : "45min",
+	"meal" : "BLD",
+}
