@@ -24,11 +24,11 @@ public class FoodItem {
 		setMeal(meal);
 	}
 	//=================== Methods
-	/*  This method returns a pre-populated JSON structure of the object Item
+	/*  This method returns a JSON structure of the object FoodItem
 	 *  @return String
 	 */
 	public String toJSON() {
-		String json = "FoodItem { ";
+		String json = "FoodItem" + " { ";
 		json += "\n\t\"id\" : \"" + getId() + "\",";
 		json += "\n\t\"name\" : \"" + getName() + "\",";
 		json += "\n\t\"rank\" : \"" + getRank() + "\",";
