@@ -1,0 +1,2 @@
+Before committing any files, be sure that you commit them to a new branch (something like "username - java" should be fine).
+Then we can compare changes before adding to the master branch.  Leave a short description of work done alongside commit.
