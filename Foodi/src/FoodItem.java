@@ -18,6 +18,7 @@ public class FoodItem {
 	public FoodItem (String name, int rank, int calories, String recipe, String prepTime, String meal) {
 		this(-1, name, rank, calories, recipe, prepTime, meal);
 	}
+	//workhorse constructor
 	public FoodItem (int id, String name, int rank, int calories, String recipe, String prepTime, String meal) {
 		setId(id);
 		setName(name);
@@ -40,7 +41,7 @@ public class FoodItem {
 		json += "\n\t\"recipe\" : \"" + getRecipe() + "\",";
 		json += "\n\t\"prepTime\" : \"" + getPrepTime() + "\",";
 		json += "\n\t\"meal\" : \"" + getMeal() + "\",";
-		json += "\n}";
+		json += "\n}\n";
 		return json;
 	}
 	//=================== Getter/Setter

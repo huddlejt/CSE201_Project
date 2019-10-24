@@ -26,7 +26,7 @@ public class Beverage extends FoodItem {
 		json += "\n\t\"prepTime\" : \"" + getPrepTime() + "\",";
 		json += "\n\t\"meal\" : \"" + getMeal() + "\",";
 		json += "\n\t\"alcoholContent\" : \"" + getAlcoholContent() + "\",";
-		json += "\n}";
+		json += "\n}\n";
 		return json;
 	}
 	

@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
-public abstract class User {
+public class User {
 	private String username;
 	private String password;
 	private int userId;
 	
-	private ArrayList<Integer> savedItems = new ArrayList<>();
+	private ArrayList<Integer> userLibrary = new ArrayList<>();
 	
 	//=============== Getters/Setters
 	public String getUsername() {
@@ -22,20 +22,51 @@ public abstract class User {
 	}
 	
 	public boolean saveItem(int id) {
-		savedItems.add(id);
+		userLibrary.add(id);
 		return true;
 	}
 	public int getUserId() {
 		return userId;
 	}
+
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	
-	//
 	public boolean createItem(FoodItem newFood) {
 		newFood.setId(dbManager.getID());
 		
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		String result = "";
+		for(int i = 0; i < userLibrary.size(); i++) {
+			if(i == userLibrary.size() - 1) {
+				result += userLibrary.get(i);
+			}
+			else {
+				result += userLibrary.get(i) + ",";
+			}
+		}
+		return result;
+	}
+	
+	
+	public boolean removeFromLibrary(int id) {
+		return true;
+	}
+	
+	
+	
+	public String toJSON() {
+		String json = "User" + " { ";
+		json += 	"\n\t\"id\" : \"" 			+ getUserId() 	+ "\",";
+		json += 	"\n\t\"username\" : \"" 	+ getUsername() + "\",";
+		json += 	"\n\t\"password\" : \"" 	+ getPassword() + "\",";
+		json += 	"\n\t\"library\" : \"" 		+ toString() 	+ "\",";
+		json += 	"\n}";
+		return json;
 	}
 }

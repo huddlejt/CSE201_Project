@@ -21,7 +21,7 @@ public class Appetizer extends FoodItem {
 		json += "\n\t\"recipe\" : \"" + getRecipe() + "\",";
 		json += "\n\t\"prepTime\" : \"" + getPrepTime() + "\",";
 		json += "\n\t\"meal\" : \"" + getMeal() + "\",";
-		json += "\n}";
+		json += "\n}\n";
 		return json;
 	}
 }
