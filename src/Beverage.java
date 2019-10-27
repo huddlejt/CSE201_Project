@@ -9,25 +9,21 @@ public class Beverage extends FoodItem {
 		super(); //call FoodItem()
 		setAlcoholContent(0);
 	}
-	public Beverage(String name, int rank, int calories, String recipe, String prepTime, String meal, int alcoholContent) {
-		super(-1, name, rank, calories, recipe, prepTime, meal); //call parameterized FoodItem constructor
+	public Beverage(int id, String name, int rank, int calories, String recipe, String prepTime, String meal, int alcoholContent) {
+		super(id, name, rank, calories, recipe, prepTime, meal); //call parameterized FoodItem constructor
 		setAlcoholContent(alcoholContent);
 	}
 	
 	//=================== Methods
 	@Override
 	public String toJSON() {
-		String json = "Beverage" + " { ";
-		json += "\n\t\"id\" : \"" + getId() + "\",";
-		json += "\n\t\"name\" : \"" + getName() + "\",";
-		json += "\n\t\"rank\" : \"" + getRank() + "\",";
-		json += "\n\t\"calories\" : \"" + getCalories() + "\",";
-		json += "\n\t\"recipe\" : \"" + getRecipe() + "\",";
-		json += "\n\t\"prepTime\" : \"" + getPrepTime() + "\",";
-		json += "\n\t\"meal\" : \"" + getMeal() + "\",";
-		json += "\n\t\"alcoholContent\" : \"" + getAlcoholContent() + "\",";
-		json += "\n}\n";
+		
+		String json = "FoodItem" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
+				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal() + "\t" + getAlcoholContent() + "\n}\n";
+		
 		return json;
+		
+		
 	}
 	
 	//=================== Getters/Setters

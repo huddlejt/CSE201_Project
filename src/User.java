@@ -5,9 +5,12 @@ public class User {
 	private String password;
 	private long userId;
 	
-	private ArrayList<Integer> userLibrary = new ArrayList<>();
 	
-	//=============== Getters/Setters
+	
+	
+	private ArrayList<Long> library = new ArrayList<>();
+	
+	// =================== Getters/Setters =======================================
 	public String getUsername() {
 		return username;
 	}
@@ -21,10 +24,10 @@ public class User {
 		this.password = password;
 	}
 	
-	public boolean saveItem(int id) {
-		userLibrary.add(id);
-		return true;
+	public void setLibrary(ArrayList<Long> library) {
+		this.library = library;
 	}
+	
 	public long getUserId() {
 		return userId;
 	}
@@ -33,40 +36,77 @@ public class User {
 		this.userId = userId;
 	}
 	
+	
+	// ==================== user library mgmt =================================
+	
+	
 	public boolean createItem(FoodItem newFood) {
+		
 		
 		
 		return true;
 	}
 	
+	public boolean saveToLibrary(long id) {
+		if (library.contains(id)) {
+			return false;
+		}
+		
+		library.add(id);
+		return true;
+	}
+	
+	
+	// returns false if food id does not exist in library
+	public boolean removeFromLibrary(long id) {
+		if (library.contains(id)) {
+			library.remove(id);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	// Temporary way of storing an ArrayList of your library items so that 
+	// you can simply parse to display all your items
+	// Return type will eventually become ArrayList<FoodItem> instead of 
+	// ArrayList<String> to have easy access to all the items in your personal
+	// library
+	public ArrayList<String> fetchLibrary(ArrayList<Long> library){
+		
+		ArrayList<String> result = new ArrayList<>();
+//		for(int i = 0; i < library.size(); i++) {
+//			result.add(readItem(library.get(i)));
+//		}
+		return result;
+	}
+	
+	
+	
+	
+	
+	// converts the user's library to a comma separated list
 	@Override
 	public String toString() {
 		String result = "";
-		for(int i = 0; i < userLibrary.size(); i++) {
-			if(i == userLibrary.size() - 1) {
-				result += userLibrary.get(i);
+		for(int i = 0; i < library.size(); i++) {
+			if(i == library.size() - 1) {
+				result += library.get(i);
 			}
 			else {
-				result += userLibrary.get(i) + ",";
+				result += library.get(i) + ",";
 			}
 		}
 		return result;
 	}
 	
-	
-	public boolean removeFromLibrary(int id) {
-		return true;
-	}
-	
-	
-	
 	public String toJSON() {
-		String json = "User" + " { ";
-		json += 	"\n\t\"id\" : \"" 			+ getUserId() 	+ "\",";
-		json += 	"\n\t\"username\" : \"" 	+ getUsername() + "\",";
-		json += 	"\n\t\"password\" : \"" 	+ getPassword() + "\",";
-		json += 	"\n\t\"library\" : \"" 		+ toString() 	+ "\",";
-		json += 	"\n}";
+		
+		String json = "User" + "\t" + getUserId() + "\t" + getUsername() + "\t" +
+		getPassword() + "\t" + toString() + "\n}\n";
+		
 		return json;
+		
 	}
 }

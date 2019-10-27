@@ -1,7 +1,7 @@
 
 public class FoodItem {
 	//=================== Variables
-	private long id;		//line number in text File
+	private int id;		//line number in text File
 	private String name;
 	private int rank;
 	private int calories;
@@ -19,7 +19,7 @@ public class FoodItem {
 		this(-1, name, rank, calories, recipe, prepTime, meal);
 	}
 	//workhorse constructor
-	public FoodItem (long id, String name, int rank, int calories, String recipe, String prepTime, String meal) {
+	public FoodItem (int id, String name, int rank, int calories, String recipe, String prepTime, String meal) {
 		setId(id);
 		setName(name);
 		setRank(rank);
@@ -33,19 +33,14 @@ public class FoodItem {
 	 *  @return String
 	 */
 	public String toJSON() {
-		String json = "FoodItem" + " { ";
-		json += "\n\t\"id\" : \"" + getId() + "\",";
-		json += "\n\t\"name\" : \"" + getName() + "\",";
-		json += "\n\t\"rank\" : \"" + getRank() + "\",";
-		json += "\n\t\"calories\" : \"" + getCalories() + "\",";
-		json += "\n\t\"recipe\" : \"" + getRecipe() + "\",";
-		json += "\n\t\"prepTime\" : \"" + getPrepTime() + "\",";
-		json += "\n\t\"meal\" : \"" + getMeal() + "\",";
-		json += "\n}\n";
+		String json = "FoodItem" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
+				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal() + "\n}\n";
+		
 		return json;
+
 	}
 	//=================== Getter/Setter
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 	public String getName() {
@@ -66,7 +61,7 @@ public class FoodItem {
 	public String getMeal() {
 		return meal;
 	}
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public void setName(String name) {
