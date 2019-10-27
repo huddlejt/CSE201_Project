@@ -3,20 +3,29 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class dbManager {
-	private int lineNum;
+	private long filePointer;
 	private RandomAccessFile raf;
 	
 	public dbManager() {
-		lineNum = 1;
+		filePointer = 1;
 		raf = null;
 	}
-	
-	public void open(File in) throws Exception {	
+	/*
+	 * @param File
+	 * @param String readWrite <<Accepts "r", "rw">>
+	 */
+	public void open(File in, String readWrite) throws Exception {	
 		//check that raf is null, then open file
 		if(raf == null) {
-			raf = new RandomAccessFile(in, "rw");
+			try {
+				raf = new RandomAccessFile(in, readWrite);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			//go to end of file
-			
+			while(raf.readLine()!=null) 
+				raf.readLine();
+			filePointer = raf.getFilePointer();
 		}
 		else {
 			Exception a = new Exception("file already open");
@@ -26,39 +35,59 @@ public class dbManager {
 	}
 	public void close() {
 		if (raf != null) {
-			try {  raf.close();  }
+			try {  raf.close();  
+					raf = null;}
 			catch (IOException e) {  e.printStackTrace();  }
 		}
 	}
 	
+	public String readItem(long id) {
+		String item = "";
+		String line = "";
+		//go to item
+		try {
+			raf.seek(id);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			while(!line.equals("}")) {
+				line = raf.readLine();
+				item += line;
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return item;
+	}
 	
 	//OVERLOADED
 	public boolean addItem(FoodItem fi) {
 		//set FoodItem's id to lineNum
-		fi.setId(lineNum);
+		fi.setId(filePointer);
 		//check that raf was initialized
 		if(raf == null) {
 			return false;
 		}
-		if(lineNum == 1) {
+		if(filePointer == 1) {
 			try {
 				raf.writeBytes(fi.toJSON());
 			} catch (IOException e) {
 				e.printStackTrace();
 				return false;
 			}
-			updateLine(fi);
+			updateFilePointer();
 			return true;
 		}
 		else {
 			//skip necessary lines
-			for(int i = 1; i <= lineNum; i++) {
-				try{
-					raf.readLine();
-				} catch (IOException e) {
-					e.printStackTrace();
-					return false;
-				}
+			try {
+				raf.seek(filePointer);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 			//write to next available line
 			try {
@@ -67,31 +96,31 @@ public class dbManager {
 				e.printStackTrace();
 				return false;
 			}
-			updateLine(fi);
+			updateFilePointer();
 			return true;
 			
 		}
 	}
 	//OVERLOADED
 	public boolean addItem(User u) {
-		u.setUserId(lineNum);
+		u.setUserId(filePointer);
 		
 		if(raf == null) {
 			return false;
 		}
-		if(lineNum == 1) {
+		if(filePointer == 1) {
 			try {
 				raf.writeBytes(u.toJSON());
 			} catch (IOException e) {
 				e.printStackTrace();
 				return false;
 			}
-			updateLine(u);
+			updateFilePointer();
 			return true;
 		}
 		else {
 			//skip necessary lines
-			for(int i = 1; i < lineNum; i++) {
+			for(int i = 1; i < filePointer; i++) {
 				try{
 					raf.readLine();
 				} catch (IOException e) {
@@ -106,35 +135,26 @@ public class dbManager {
 				e.printStackTrace();
 				return false;
 			}
-			updateLine(u);
+			updateFilePointer();
 			return true;
 			
 		}
 	}
 	
+	
 	//OVERLOADED
-	private void updateLine(User u) {
-		if(u instanceof Admin) {
-			lineNum += 6;
-		}
-		else {
-			lineNum+= 5;
-		}
-	}
-	//OVERLOADED
-	private void updateLine(FoodItem fi) {
-		if(fi instanceof Beverage) {
-			lineNum += 10;
-		}
-		else {
-			lineNum += 9;
+	private void updateFilePointer() {
+		try {
+			filePointer = raf.getFilePointer();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
 	
 	//Used to set a User or FoodItem ID
-	public int getID() {
-		return lineNum;
+	public long getID() {
+		return filePointer;
 	}
 
 }

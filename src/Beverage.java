@@ -9,6 +9,10 @@ public class Beverage extends FoodItem {
 		super(); //call FoodItem()
 		setAlcoholContent(0);
 	}
+	public Beverage(String name, int rank, int calories, String recipe, String prepTime, String meal, int alcoholContent) {
+		super(name, rank, calories, recipe, prepTime, meal); //call parameterized FoodItem constructor
+		setAlcoholContent(alcoholContent);
+	}
 	public Beverage(int id, String name, int rank, int calories, String recipe, String prepTime, String meal, int alcoholContent) {
 		super(id, name, rank, calories, recipe, prepTime, meal); //call parameterized FoodItem constructor
 		setAlcoholContent(alcoholContent);
