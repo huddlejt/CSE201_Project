@@ -1,7 +1,7 @@
 
 public class FoodItem {
 	//=================== Variables
-	private int id;		//line number in text File
+	private long id;		//line number in text File
 	private String name;
 	private int rank;
 	private int calories;
@@ -19,7 +19,7 @@ public class FoodItem {
 		this(-1, name, rank, calories, recipe, prepTime, meal);
 	}
 	//workhorse constructor
-	public FoodItem (int id, String name, int rank, int calories, String recipe, String prepTime, String meal) {
+	public FoodItem (long id, String name, int rank, int calories, String recipe, String prepTime, String meal) {
 		setId(id);
 		setName(name);
 		setRank(rank);
@@ -37,10 +37,61 @@ public class FoodItem {
 				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal() + "\n}\n";
 		
 		return json;
-
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 * auto generated hashCode
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 * auto generated equals
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof FoodItem))
+			return false;
+		FoodItem other = (FoodItem) obj;
+		if (calories != other.calories)
+			return false;
+		if (id != other.id)
+			return false;
+		if (meal == null) {
+			if (other.meal != null)
+				return false;
+		} else if (!meal.equals(other.meal))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (prepTime == null) {
+			if (other.prepTime != null)
+				return false;
+		} else if (!prepTime.equals(other.prepTime))
+			return false;
+		if (rank != other.rank)
+			return false;
+		if (recipe == null) {
+			if (other.recipe != null)
+				return false;
+		} else if (!recipe.equals(other.recipe))
+			return false;
+		return true;
 	}
 	//=================== Getter/Setter
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	public String getName() {
@@ -61,7 +112,7 @@ public class FoodItem {
 	public String getMeal() {
 		return meal;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public void setName(String name) {
