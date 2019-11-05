@@ -249,7 +249,6 @@ public class FoodiUI {
 	}
 	
 	private void testPopulate() {
-		
 		for(int i = 0; i < foods.length; i++) {
 			if(foods[i] != null) {
 				listFoodItems.add(foods[i].toJSON());
