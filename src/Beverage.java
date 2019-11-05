@@ -22,7 +22,7 @@ public class Beverage extends FoodItem {
 	@Override
 	public String toJSON() {
 		
-		String json = "FoodItem" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
+		String json = "Beverage" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
 				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal() + "\t" + getAlcoholContent() + "\n}\n";
 		
 		return json;
