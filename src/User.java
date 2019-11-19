@@ -6,7 +6,11 @@ public class User {
 	private long userId;
 	
 	
-	
+	public User (String username, String password, long userId) {
+		setUsername(username);
+		setPassword(password);
+		setUserId(userId);
+	}
 	
 	private ArrayList<Long> library = new ArrayList<>();
 	
@@ -36,41 +40,13 @@ public class User {
 		this.userId = userId;
 	}
 	
-	// =================== equals =============================================
-	
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (userId ^ (userId >>> 32));
-		return result;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (userId != other.userId)
-			return false;
-		if (username == null) {
-			if (other.username != null)
-				return false;
-		} else if (!username.equals(other.username))
-			return false;
-		return true;
-	}
 	
 	// ==================== user library mgmt =================================
 	
+	
 	public boolean createItem(FoodItem newFood) {
 		
-		///////////////////////////////////////
+		
 		
 		return true;
 	}

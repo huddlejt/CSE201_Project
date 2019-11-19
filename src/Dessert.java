@@ -5,11 +5,14 @@ public class Dessert extends FoodItem {
 	public Dessert() {
 		super();
 	}
+	//constructor for form in GUI
+	public Dessert( String name, int rank, int calories, String recipe, String prepTime, String meal) {
+		super(-1, name, rank, calories, recipe, prepTime, meal);
+	}
 
 	public Dessert(int id, String name, int rank, int calories, String recipe, String prepTime, String meal) {
 		super(id, name, rank, calories, recipe, prepTime, meal);
 	}
-
 	//=================== Methods
 	@Override
 	public String toJSON() {
