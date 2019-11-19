@@ -1,118 +1,87 @@
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.io.PrintWriter;
+import java.io.RandomAccessFile;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
 
 public class dbManager {
-	private HashMap<Integer, FoodItem> foods;
-	private HashMap<Integer, User> users;
-	private long filePointer;
-	private Scanner read;
-	private final String FOODS = "FoodItems.txt";
-	private final String USERS = "Users.txt";
-
-
+	private int lineNum;
+	private RandomAccessFile raf;
+	
 	public dbManager() {
-		filePointer = 1;
-		read = null;
-		foods = new HashMap<>();
-		users = new HashMap<>();
-		//populate foods and users
-		fetch(0, read);
-		fetch(1, read);
+		lineNum = 1;
+		raf = null;
 	}
-	/*
-	 * @param File
-	 * @param String readWrite <<Accepts "r", "rw">>
-	 */
-	public void fetch(int db, Scanner read) {	
+	
+	public void open(File in) throws Exception {	
 		//check that raf is null, then open file
-		if(read == null) {
-			if(db == 0) {
-				try {
-					read = new Scanner(new File(FOODS));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				//populate hashmap foods
-				int line = 0;
-				while(read.hasNextLine()) {
-					String[] split = read.nextLine().split("\t");
-					foods.put(line, new FoodItem(line, split[1], Integer.parseInt(split[2]), Integer.parseInt(split[3]), split[4], split[5], split[6]));
-				}
-
-			}
-			else if(db == 1) {
-				try {
-					read = new Scanner(new File(USERS));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				//populate hashmap users
-				int line = 0;
-				while(read.hasNextLine()) {
-					String[] split = read.nextLine().split("\t");
-					users.put(line, new User(split[1], split[2], line));
-				}
-			}
+		if(raf == null) {
+			raf = new RandomAccessFile(in, "rw");
+			//go to end of file
+			
 		}
-
+		else {
+			Exception a = new Exception("file already open");
+			throw a;
+		}
+		
 	}
-	public void close() {
-		if (raf != null) {
-			try {  raf.close();  
-			raf = null;}
-			catch (IOException e) {  e.printStackTrace();  }
+	
+	public void update(int type, PrintWriter pw) {
+		
+		switch(type) {
+			
+			case 0:
+				
+				Iterator foodIterator = foods.entrySet().iterator();
+				while (foodIterator.hasNext()) {
+					Map.Entry mapElement = (Map.Entry)foodIterator.next();
+					pw.println((mapElement.getValue()).toJSON());
+			
+			}
+				
+			case 1:
+				
+				Iterator userIterator = users.entrySet().iterator();
+				while (userIterator.hasNext()) {
+					Map.Entry mapElement = (Map.Entry)userIterator.next();
+					pw.println((mapElement.getValue()).toJSON());
+			
+			}
+				
 		}
 	}
-
-	public String readItem(long id) {
-		String item = "";
-		String line = "";
-		//go to item
-		try {
-			raf.seek(id);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			while(!line.equals("}")) {
-				line = raf.readLine();
-				item += line;
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return item;
-	}
-
+	
+	
 	//OVERLOADED
 	public boolean addItem(FoodItem fi) {
 		//set FoodItem's id to lineNum
-		fi.setId(filePointer);
+		fi.setId(lineNum);
 		//check that raf was initialized
 		if(raf == null) {
 			return false;
 		}
-		if(filePointer == 1) {
+		if(lineNum == 1) {
 			try {
 				raf.writeBytes(fi.toJSON());
 			} catch (IOException e) {
 				e.printStackTrace();
 				return false;
 			}
-			updateFilePointer();
+			updateLine(fi);
 			return true;
 		}
 		else {
 			//skip necessary lines
-			try {
-				raf.seek(filePointer);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			for(int i = 1; i <= lineNum; i++) {
+				try{
+					raf.readLine();
+				} catch (IOException e) {
+					e.printStackTrace();
+					return false;
+				}
 			}
 			//write to next available line
 			try {
@@ -121,31 +90,31 @@ public class dbManager {
 				e.printStackTrace();
 				return false;
 			}
-			updateFilePointer();
+			updateLine(fi);
 			return true;
-
+			
 		}
 	}
 	//OVERLOADED
 	public boolean addItem(User u) {
-		u.setUserId(filePointer);
-
+		u.setUserId(lineNum);
+		
 		if(raf == null) {
 			return false;
 		}
-		if(filePointer == 1) {
+		if(lineNum == 1) {
 			try {
 				raf.writeBytes(u.toJSON());
 			} catch (IOException e) {
 				e.printStackTrace();
 				return false;
 			}
-			updateFilePointer();
+			updateLine(u);
 			return true;
 		}
 		else {
 			//skip necessary lines
-			for(int i = 1; i < filePointer; i++) {
+			for(int i = 1; i < lineNum; i++) {
 				try{
 					raf.readLine();
 				} catch (IOException e) {
@@ -160,26 +129,35 @@ public class dbManager {
 				e.printStackTrace();
 				return false;
 			}
-			updateFilePointer();
+			updateLine(u);
 			return true;
-
+			
 		}
 	}
-
-
+																																									
 	//OVERLOADED
-	private void updateFilePointer() {
-		try {
-			filePointer = raf.getFilePointer();
-		} catch (IOException e) {
-			e.printStackTrace();
+	private void updateLine(User u) {
+		if(u instanceof Admin) {
+			lineNum += 6;
+		}
+		else {
+			lineNum+= 5;
+		}
+	}
+	//OVERLOADED
+	private void updateLine(FoodItem fi) {
+		if(fi instanceof Beverage) {
+			lineNum += 10;
+		}
+		else {
+			lineNum += 9;
 		}
 	}
 
-
+	
 	//Used to set a User or FoodItem ID
-	public long getID() {
-		return filePointer;
+	public int getID() {
+		return lineNum;
 	}
 
 }
