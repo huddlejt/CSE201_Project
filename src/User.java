@@ -9,10 +9,10 @@ public class User {
 	
 	
 	
-	public User (String username, String password, int id) {
+	public User (String username, String password, int userId) {
 		setUsername(username);
 		setPassword(password);
-		setId(id);
+		setId(userId);
 	}
 	
 	// =================== Getters/Setters =======================================
@@ -73,13 +73,6 @@ public class User {
 	
 	// ==================== user library mgmt =================================
 	
-	public boolean createItem(FoodItem newFood) {
-		
-		///////////////////////////////////////
-		
-		return true;
-	}
-	
 	public boolean saveToLibrary(long id) {
 		if (library.contains(id)) {
 			return false;
@@ -100,25 +93,7 @@ public class User {
 			return false;
 		}
 	}
-	
-	// Temporary way of storing an ArrayList of your library items so that 
-	// you can simply parse to display all your items
-	// Return type will eventually become ArrayList<FoodItem> instead of 
-	// ArrayList<String> to have easy access to all the items in your personal
-	// library
-	public ArrayList<String> fetchLibrary(ArrayList<Long> library){
-		
-		ArrayList<String> result = new ArrayList<>();
-//		for(int i = 0; i < library.size(); i++) {
-//			result.add(readItem(library.get(i)));
-//		}
-		return result;
-	}
-	
-	
-	
-	
-	
+
 	// converts the user's library to a comma separated list
 	@Override
 	public String toString() {
