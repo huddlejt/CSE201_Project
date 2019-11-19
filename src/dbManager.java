@@ -9,26 +9,26 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 public class dbManager {
 	private HashMap<Integer, FoodItem> foods;
 	private HashMap<Integer, User> users;
-	private long filePointer;
 	private Scanner read;
+	private PrintWriter pw;
 	private final String FOODS = "FoodItems.txt";
 	private final String USERS = "Users.txt";
 
 
 	public dbManager() {
-		filePointer = 1;
 		read = null;
+		pw = null;
 		foods = new HashMap<>();
 		users = new HashMap<>();
 		//populate foods and users
-		fetch(0, read);
-		fetch(1, read);
+		fetch(0);
+		fetch(1);
 	}
 	/*
 	 * @param File
 	 * @param String readWrite <<Accepts "r", "rw">>
 	 */
-	public void fetch(int db, Scanner read) {	
+	public void fetch(int db) {	
 		//check that raf is null, then open file
 		if(read == null) {
 			if(db == 0) {
@@ -58,147 +58,46 @@ public class dbManager {
 					users.put(line, new User(split[1], split[2], line));
 				}
 			}
+			
+			try {
+				read.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
-	public void update(int type, PrintWriter pw) {
+	public void update(int type) {
 
 		switch(type) {
 
 		case 0:
-
-			Iterator foodIterator = foods.entrySet().iterator();
-			while (foodIterator.hasNext()) {
-				Map.Entry mapElement = (Map.Entry)foodIterator.next();
-				pw.println((mapElement.getValue()).toJSON());
-
+			try {
+				pw = new PrintWriter(new File(FOODS));
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-
+			for(int key : foods.keySet()) {
+				pw.println(foods.get(key).toJSON());
+			}
+			break;
 		case 1:
-
-			Iterator userIterator = users.entrySet().iterator();
-			while (userIterator.hasNext()) {
-				Map.Entry mapElement = (Map.Entry)userIterator.next();
-				pw.println((mapElement.getValue()).toJSON());
-
+			try {
+				pw = new PrintWriter(new File(USERS));
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-
-		}
-	}
-	public String readItem(long id) {
-		String item = "";
-		String line = "";
-		//go to item
-		try {
-			raf.seek(id);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			while(!line.equals("}")) {
-				line = raf.readLine();
-				item += line;
+			for(int key : users.keySet()) {
+				pw.println(users.get(key).toJSON());
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			break;
+		}
+		
+		try {
+			pw.close();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return item;
-	}
-
-	//OVERLOADED
-	public boolean addItem(FoodItem fi) {
-		//set FoodItem's id to lineNum
-		fi.setId(filePointer);
-		//check that raf was initialized
-		if(raf == null) {
-			return false;
-		}
-		if(filePointer == 1) {
-			try {
-				raf.writeBytes(fi.toJSON());
-			} catch (IOException e) {
-				e.printStackTrace();
-				return false;
-			}
-			updateFilePointer();
-			return true;
-		}
-		else {
-			//skip necessary lines
-			try {
-				raf.seek(filePointer);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			//write to next available line
-			try {
-				raf.writeBytes(fi.toJSON());
-			} catch (IOException e) {
-				e.printStackTrace();
-				return false;
-			}
-			updateFilePointer();
-			return true;
-
-		}
-	}
-	//OVERLOADED
-	public boolean addItem(User u) {
-		u.setUserId(filePointer);
-
-		if(raf == null) {
-			return false;
-		}
-		if(filePointer == 1) {
-			try {
-				raf.writeBytes(u.toJSON());
-			} catch (IOException e) {
-				e.printStackTrace();
-				return false;
-			}
-			updateFilePointer();
-			return true;
-		}
-		else {
-			//skip necessary lines
-			for(int i = 1; i < filePointer; i++) {
-				try{
-					raf.readLine();
-				} catch (IOException e) {
-					e.printStackTrace();
-					return false;
-				}
-			}
-			//write to next available line
-			try {
-				raf.writeBytes(u.toJSON());
-			} catch (IOException e) {
-				e.printStackTrace();
-				return false;
-			}
-			updateFilePointer();
-			return true;
-
-		}
-	}
-
-
-	//OVERLOADED
-	private void updateFilePointer() {
-		try {
-			filePointer = raf.getFilePointer();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-
-	//Used to set a User or FoodItem ID
-	public long getID() {
-		return filePointer;
 	}
 
 }
