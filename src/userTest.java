@@ -29,27 +29,27 @@ class userTest {
 	@Test
 	public void testSetGetUserId() {
 		System.out.println("Testing the setter and getter for userID...");
-		long input = 6000;
+		int input = 6000;
 		User userTest1 = new User();
-		userTest1.setUserId(input);
+		userTest1.setId(input);
 
-		assertTrue(userTest1.getUserId() == input);
+		assertTrue(userTest1.getId() == input);
 	}
 	//============================= Method tester
 
 	@Test
 	public void testToJson() { // also tests toString method
 		System.out.println("Testing the toJson Method...");
-		long id = 200;
+		int id = 200;
 		String username = "desaidn";
 		String password = "123";
 
 		User userTest1 = new User();
-		userTest1.setUserId(id);
+		userTest1.setId(id);
 		userTest1.setUsername(username);
 		userTest1.setPassword(password);
 
-		String input = "User" + "\t" + userTest1.getUserId() + "\t" + userTest1.getUsername() + "\t" +
+		String input = "User" + "\t" + userTest1.getId() + "\t" + userTest1.getUsername() + "\t" +
 				userTest1.getPassword() + "\t" + userTest1.toString() + "\n}\n";
 
 		assertTrue(input.equals(userTest1.toJSON()));
@@ -60,12 +60,12 @@ class userTest {
 		System.out.println("Testing the hasshCode Method...");
 		final int prime = 31;		
 		int expectedResult = 1;	
-		long userId = 6000;
+		int userId = 6000;
 
 		User userTest1 = new User();
-		userTest1.setUserId(userId);
+		userTest1.setId(userId);
 
-		expectedResult = prime * expectedResult + (int) (userTest1.getUserId() ^ (userTest1.getUserId() >>> 32));
+		expectedResult = prime * expectedResult + (int) (userTest1.getId() ^ (userTest1.getId() >>> 32));
 
 		assertTrue(userTest1.hashCode() == expectedResult);
 	}

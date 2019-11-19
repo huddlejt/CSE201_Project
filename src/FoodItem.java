@@ -61,8 +61,8 @@ public class FoodItem {
 	public String getMeal() {
 		return meal;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int id2) {
+		this.id = id2;
 	}
 	public void setName(String name) {
 		this.name = name;

@@ -120,7 +120,7 @@ public class dbManager {
 		if (foods.containsKey(u.getId())) {
 			return false;
 		}
-		foods.put(u.getId(), u);
+		users.put(u.getId(), u);
 		return true;
 	}
 

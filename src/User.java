@@ -15,6 +15,10 @@ public class User {
 		setId(userId);
 	}
 	
+	public User() {
+		this("","",-1);
+	}
+
 	// =================== Getters/Setters =======================================
 	public String getUsername() {
 		return username;
@@ -33,7 +37,7 @@ public class User {
 		this.library = library;
 	}
 	
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 

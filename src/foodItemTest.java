@@ -10,7 +10,7 @@ class foodItemTest {
 
 	@Test
 	public void testFoodItem() { 
-		long id = 2;		//line number in text File
+		int id = 2;		//line number in text File
 		String name = "Pasta";
 		int rank = 3;
 		int calories = 1000;
@@ -32,7 +32,7 @@ class foodItemTest {
 
 	@Test 
 	public void testSetGetId() {
-		long id = 200; 
+		int id = 200; 
 		FoodItem foodItem1 = new FoodItem(); 
 		foodItem1.setId(id);
 
@@ -100,7 +100,7 @@ class foodItemTest {
 	@Test
 	public void testToJson() { 
 		System.out.println("Testing the toJson Method...");
-		long id = 200;
+		int id = 200;
 		String name = "Pasta";
 		int rank = 2;
 		int calories = 1000;
@@ -130,7 +130,7 @@ class foodItemTest {
 		System.out.println("Testing the hasshCode Method...");
 		final int prime = 31;		
 		int expectedResult = 1;	
-		long foodId = 6000;
+		int foodId = 6000;
 
 		FoodItem foodItem1 = new FoodItem();
 		foodItem1.setId(foodId);
