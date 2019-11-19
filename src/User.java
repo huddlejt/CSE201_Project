@@ -3,16 +3,17 @@ import java.util.ArrayList;
 public class User {
 	private String username;
 	private String password;
-	private long userId;
+	private int id;
+	private ArrayList<Long> library = new ArrayList<>();
 	
 	
-	public User (String username, String password, long userId) {
+	
+	
+	public User (String username, String password, int id) {
 		setUsername(username);
 		setPassword(password);
-		setUserId(userId);
+		setId(id);
 	}
-	
-	private ArrayList<Long> library = new ArrayList<>();
 	
 	// =================== Getters/Setters =======================================
 	public String getUsername() {
@@ -32,21 +33,49 @@ public class User {
 		this.library = library;
 	}
 	
-	public long getUserId() {
-		return userId;
+	public long getId() {
+		return id;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setId(int id) {
+		this.id = id;
 	}
 	
+	// =================== equals =============================================
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (id != other.id)
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
+	}
 	
 	// ==================== user library mgmt =================================
 	
-	
 	public boolean createItem(FoodItem newFood) {
 		
-		
+		///////////////////////////////////////
 		
 		return true;
 	}
@@ -107,7 +136,7 @@ public class User {
 	
 	public String toJSON() {
 		
-		String json = "User" + "\t" + getUserId() + "\t" + getUsername() + "\t" +
+		String json = "User" + "\t" + getId() + "\t" + getUsername() + "\t" +
 		getPassword() + "\t" + toString() + "\n}\n";
 		
 		return json;
