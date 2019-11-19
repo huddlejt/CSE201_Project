@@ -116,7 +116,7 @@ public class User {
 	public String toJSON() {
 		
 		String json = "User" + "\t" + getId() + "\t" + getUsername() + "\t" +
-		getPassword() + "\t" + toString() + "\n}\n";
+		getPassword() + "\t" + toString() + "\n";
 		
 		return json;
 		

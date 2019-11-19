@@ -19,7 +19,7 @@ public class Beverage extends FoodItem {
 	public String toJSON() {
 		
 		String json = "FoodItem" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
-				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal() + "\t" + getAlcoholContent() + "\n}\n";
+				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal() + "\t" + getAlcoholContent() + "\n";
 		
 		return json;
 		

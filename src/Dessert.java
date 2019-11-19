@@ -14,7 +14,7 @@ public class Dessert extends FoodItem {
 	@Override
 	public String toJSON() {
 		String json = "Dessert" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
-				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal() + "\n}\n";
+				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal() + "\n";
 		
 		return json;
 	}

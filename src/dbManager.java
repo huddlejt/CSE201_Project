@@ -41,7 +41,8 @@ public class dbManager {
 
 				while(read.hasNextLine()) {
 					String[] split = read.nextLine().split("\t");
-					foods.put(Integer.parseInt(split[2]), new FoodItem(Integer.parseInt(split[2]), split[1], Integer.parseInt(split[2]), Integer.parseInt(split[3]), split[4], split[5], split[6]));
+					System.out.println(split.length);
+					foods.put(Integer.parseInt(split[1]), new FoodItem(Integer.parseInt(split[1]), split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), split[5], split[6], split[7]));
 				}
 
 			}
