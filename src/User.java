@@ -6,7 +6,11 @@ public class User {
 	private long userId;
 	
 	
-	
+	public User (String username, String password, long userId) {
+		setUsername(username);
+		setPassword(password);
+		setUserId(userId);
+	}
 	
 	private ArrayList<Long> library = new ArrayList<>();
 	

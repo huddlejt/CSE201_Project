@@ -28,6 +28,7 @@ public class FoodItem {
 		setPrepTime(prepTime);
 		setMeal(meal);
 	}
+	
 	//=================== Methods
 	/*  This method returns a JSON structure of the object FoodItem
 	 *  @return String

@@ -1,46 +1,71 @@
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class dbManager {
+	private HashMap<Integer, FoodItem> foods;
+	private HashMap<Integer, User> users;
 	private long filePointer;
-	private RandomAccessFile raf;
-	
+	private Scanner read;
+	private final String FOODS = "FoodItems.txt";
+	private final String USERS = "Users.txt";
+
+
 	public dbManager() {
 		filePointer = 1;
-		raf = null;
+		read = null;
+		foods = new HashMap<>();
+		users = new HashMap<>();
+		//populate foods and users
+		fetch(0, read);
+		fetch(1, read);
 	}
 	/*
 	 * @param File
 	 * @param String readWrite <<Accepts "r", "rw">>
 	 */
-	public void open(File in, String readWrite) throws Exception {	
+	public void fetch(int db, Scanner read) {	
 		//check that raf is null, then open file
-		if(raf == null) {
-			try {
-				raf = new RandomAccessFile(in, readWrite);
-			} catch (Exception e) {
-				e.printStackTrace();
+		if(read == null) {
+			if(db == 0) {
+				try {
+					read = new Scanner(new File(FOODS));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				//populate hashmap foods
+				int line = 0;
+				while(read.hasNextLine()) {
+					String[] split = read.nextLine().split("\t");
+					foods.put(line, new FoodItem(line, split[1], Integer.parseInt(split[2]), Integer.parseInt(split[3]), split[4], split[5], split[6]));
+				}
+
 			}
-			//go to end of file
-			while(raf.readLine()!=null) 
-				raf.readLine();
-			filePointer = raf.getFilePointer();
+			else if(db == 1) {
+				try {
+					read = new Scanner(new File(USERS));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				//populate hashmap users
+				int line = 0;
+				while(read.hasNextLine()) {
+					String[] split = read.nextLine().split("\t");
+					users.put(line, new User(split[1], split[2], line));
+				}
+			}
 		}
-		else {
-			Exception a = new Exception("file already open");
-			throw a;
-		}
-		
+
 	}
 	public void close() {
 		if (raf != null) {
 			try {  raf.close();  
-					raf = null;}
+			raf = null;}
 			catch (IOException e) {  e.printStackTrace();  }
 		}
 	}
-	
+
 	public String readItem(long id) {
 		String item = "";
 		String line = "";
@@ -62,7 +87,7 @@ public class dbManager {
 		}
 		return item;
 	}
-	
+
 	//OVERLOADED
 	public boolean addItem(FoodItem fi) {
 		//set FoodItem's id to lineNum
@@ -98,13 +123,13 @@ public class dbManager {
 			}
 			updateFilePointer();
 			return true;
-			
+
 		}
 	}
 	//OVERLOADED
 	public boolean addItem(User u) {
 		u.setUserId(filePointer);
-		
+
 		if(raf == null) {
 			return false;
 		}
@@ -137,11 +162,11 @@ public class dbManager {
 			}
 			updateFilePointer();
 			return true;
-			
+
 		}
 	}
-	
-	
+
+
 	//OVERLOADED
 	private void updateFilePointer() {
 		try {
@@ -151,7 +176,7 @@ public class dbManager {
 		}
 	}
 
-	
+
 	//Used to set a User or FoodItem ID
 	public long getID() {
 		return filePointer;
