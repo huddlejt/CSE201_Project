@@ -27,7 +27,6 @@ public class dbManager {
 	}
 
 	public void fetch(int db) {
-
 		if(read == null) {
 			if(db == 0) {
 				try {
@@ -37,12 +36,25 @@ public class dbManager {
 				}
 				//populate hashmap foods
 
+				//read empty line
+				if(read.hasNextLine())
+					read.nextLine();
 
 
 				while(read.hasNextLine()) {
 					String[] split = read.nextLine().split("\t");
 					System.out.println(split.length);
-					foods.put(Integer.parseInt(split[1]), new FoodItem(Integer.parseInt(split[1]), split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), split[5], split[6], split[7]));
+					if(split[0].equals("Appetizer"))
+						foods.put(Integer.parseInt(split[1]), new Appetizer(Integer.parseInt(split[1]), split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), split[5], split[6], split[7]));
+					else if(split[0].equals("Beverage"))
+						foods.put(Integer.parseInt(split[1]), new Beverage(Integer.parseInt(split[1]), split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), split[5], split[6], split[7], Integer.parseInt(split[8])));
+					else if(split[0].equals("Dessert"))
+						foods.put(Integer.parseInt(split[1]), new Dessert(Integer.parseInt(split[1]), split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), split[5], split[6], split[7]));
+					else if(split[0].equals("Entree"))
+						foods.put(Integer.parseInt(split[1]), new Appetizer(Integer.parseInt(split[1]), split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), split[5], split[6], split[7]));
+					else {
+						System.out.println("None matched");
+					}
 				}
 
 			}
@@ -84,7 +96,7 @@ public class dbManager {
 				e.printStackTrace();
 			}
 			for(int key : foods.keySet()) {
-				pw.println(foods.get(key).toJSON());
+				pw.print(foods.get(key).toJSON());
 			}
 			break;
 		case 1:
@@ -94,7 +106,7 @@ public class dbManager {
 				e.printStackTrace();
 			}
 			for(int key : users.keySet()) {
-				pw.println(users.get(key).toJSON());
+				pw.print(users.get(key).toJSON());
 			}
 			break;
 		}

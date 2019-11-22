@@ -13,8 +13,8 @@ public class Entree extends FoodItem {
 	//=================== Methods
 	@Override
 	public String toJSON() {
-		String json = "Entree" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
-				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal() + "\n";
+		String json = "\nEntree" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
+				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal();
 		
 		return json;
 	}

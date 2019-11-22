@@ -1,5 +1,5 @@
 
-public class FoodItem {
+public abstract class FoodItem {
 	//=================== Variables
 	private int id;		//line number in text File
 	private String name;
@@ -32,13 +32,13 @@ public class FoodItem {
 	/*  This method returns a JSON structure of the object FoodItem
 	 *  @return String
 	 */
-	public String toJSON() {
-		String json = "FoodItem" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
-				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal() + "\n";
-		
-		return json;
-
-	}
+	public abstract String toJSON();
+//		String json = "\nFoodItem" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
+//				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal();
+//		
+//		return json;
+//
+	
 	//=================== Getter/Setter
 	public int getId() {
 		return id;

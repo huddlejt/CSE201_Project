@@ -13,8 +13,8 @@ public class Appetizer extends FoodItem {
 	//=================== Methods
 	@Override
 	public String toJSON() {
-		String json = "Appetizer" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
-				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal() + "\n";
+		String json = "\nAppetizer" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
+				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal();
 		
 		return json;
 	}

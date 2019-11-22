@@ -18,8 +18,8 @@ public class Beverage extends FoodItem {
 	@Override
 	public String toJSON() {
 		
-		String json = "FoodItem" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
-				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal() + "\t" + getAlcoholContent() + "\n";
+		String json = "\nBeverage" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
+				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal() + "\t" + getAlcoholContent();
 		
 		return json;
 		
