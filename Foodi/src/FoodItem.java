@@ -1,5 +1,5 @@
 
-public class FoodItem {
+public abstract class FoodItem {
 	//=================== Variables
 	private int id;		//line number in text File
 	private String name;
@@ -32,18 +32,13 @@ public class FoodItem {
 	/*  This method returns a JSON structure of the object FoodItem
 	 *  @return String
 	 */
-	public String toJSON() {
-		String json = "FoodItem" + " { ";
-		json += "\n\t\"id\" : \"" + getId() + "\",";
-		json += "\n\t\"name\" : \"" + getName() + "\",";
-		json += "\n\t\"rank\" : \"" + getRank() + "\",";
-		json += "\n\t\"calories\" : \"" + getCalories() + "\",";
-		json += "\n\t\"recipe\" : \"" + getRecipe() + "\",";
-		json += "\n\t\"prepTime\" : \"" + getPrepTime() + "\",";
-		json += "\n\t\"meal\" : \"" + getMeal() + "\",";
-		json += "\n}\n";
-		return json;
-	}
+	public abstract String toJSON();
+//		String json = "\nFoodItem" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
+//				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal();
+//		
+//		return json;
+//
+	
 	//=================== Getter/Setter
 	public int getId() {
 		return id;
@@ -66,8 +61,8 @@ public class FoodItem {
 	public String getMeal() {
 		return meal;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setId(int id2) {
+		this.id = id2;
 	}
 	public void setName(String name) {
 		this.name = name;

@@ -1,0 +1,13 @@
+
+Appetizer	-1	null	0	0	null	null	null
+Beverage	0	b	1	0	www.zuckit.com	5min	Lunch	69
+Appetizer	1	bread	1	11	just bread	45min	BLD
+Appetizer	2	Food	1	11	just food	45min	BLD
+Appetizer	3	C	2	2400	www.badprogramming.com	1hr	Dinner
+Appetizer	4	A	0	12	www.zuckit.com	5min	Bekfast
+Appetizer	5	B	1	10	www.example.com	8min	Lunch
+Appetizer	6	app	2	100	asdf.com	2min	All
+Dessert	7	icecream	100	1000	www.icecream.com	2min	dinner
+Dessert	8	cake	1	50	cake	30min	All
+Dessert	9	cake	1	50	cake	30min	All
+Appetizer	10	entree	3	100	jkl.com	4min	All

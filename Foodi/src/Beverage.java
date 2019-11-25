@@ -17,17 +17,13 @@ public class Beverage extends FoodItem {
 	//=================== Methods
 	@Override
 	public String toJSON() {
-		String json = "Beverage" + " { ";
-		json += "\n\t\"id\" : \"" + getId() + "\",";
-		json += "\n\t\"name\" : \"" + getName() + "\",";
-		json += "\n\t\"rank\" : \"" + getRank() + "\",";
-		json += "\n\t\"calories\" : \"" + getCalories() + "\",";
-		json += "\n\t\"recipe\" : \"" + getRecipe() + "\",";
-		json += "\n\t\"prepTime\" : \"" + getPrepTime() + "\",";
-		json += "\n\t\"meal\" : \"" + getMeal() + "\",";
-		json += "\n\t\"alcoholContent\" : \"" + getAlcoholContent() + "\",";
-		json += "\n}\n";
+		
+		String json = "\nBeverage" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
+				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal() + "\t" + getAlcoholContent();
+		
 		return json;
+		
+		
 	}
 	
 	//=================== Getters/Setters

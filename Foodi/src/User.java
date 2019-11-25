@@ -3,11 +3,23 @@ import java.util.ArrayList;
 public class User {
 	private String username;
 	private String password;
-	private int userId;
+	private int id;
+	private ArrayList<Long> library = new ArrayList<>();
 	
-	private ArrayList<Integer> userLibrary = new ArrayList<>();
 	
-	//=============== Getters/Setters
+	
+	
+	public User (String username, String password, int userId) {
+		setUsername(username);
+		setPassword(password);
+		setId(userId);
+	}
+	
+	public User() {
+		this("","",-1);
+	}
+
+	// =================== Getters/Setters =======================================
 	public String getUsername() {
 		return username;
 	}
@@ -21,52 +33,92 @@ public class User {
 		this.password = password;
 	}
 	
-	public boolean saveItem(int id) {
-		userLibrary.add(id);
-		return true;
-	}
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setLibrary(ArrayList<Long> library) {
+		this.library = library;
 	}
 	
-	public boolean createItem(FoodItem newFood) {
-		newFood.setId(dbManager.getID());
-		
-		return true;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	// =================== equals =============================================
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
 	}
 	
 	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (id != other.id)
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
+	}
+	
+	// ==================== user library mgmt =================================
+	
+	public boolean saveToLibrary(long id) {
+		if (library.contains(id)) {
+			return false;
+		}
+		
+		library.add(id);
+		return true;
+	}
+	
+	
+	// returns false if food id does not exist in library
+	public boolean removeFromLibrary(long id) {
+		if (library.contains(id)) {
+			library.remove(id);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	// converts the user's library to a comma separated list
+	@Override
 	public String toString() {
 		String result = "";
-		for(int i = 0; i < userLibrary.size(); i++) {
-			if(i == userLibrary.size() - 1) {
-				result += userLibrary.get(i);
+		for(int i = 0; i < library.size(); i++) {
+			if(i == library.size() - 1) {
+				result += library.get(i);
 			}
 			else {
-				result += userLibrary.get(i) + ",";
+				result += library.get(i) + ",";
 			}
 		}
 		return result;
 	}
 	
-	
-	public boolean removeFromLibrary(int id) {
-		return true;
-	}
-	
-	
-	
 	public String toJSON() {
-		String json = "User" + " { ";
-		json += 	"\n\t\"id\" : \"" 			+ getUserId() 	+ "\",";
-		json += 	"\n\t\"username\" : \"" 	+ getUsername() + "\",";
-		json += 	"\n\t\"password\" : \"" 	+ getPassword() + "\",";
-		json += 	"\n\t\"library\" : \"" 		+ toString() 	+ "\",";
-		json += 	"\n}";
+		
+		String json = "User" + "\t" + getId() + "\t" + getUsername() + "\t" +
+		getPassword() + "\t" + toString() + "\n";
+		
 		return json;
+		
 	}
 }
