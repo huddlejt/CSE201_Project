@@ -19,6 +19,7 @@ import java.awt.Font;
 import javax.swing.JTable;
 import java.awt.Canvas;
 import java.awt.Label;
+import javax.swing.JComboBox;
 
 public class FoodiUI {
 
@@ -49,6 +50,12 @@ public class FoodiUI {
 	Entree e1 = new Entree(010, "entree", 3, 100, "jkl.com", "4min", "All");
 
 	FoodItem[] foods = new FoodItem[] {a,b,c,b1,a1,d1,e1};
+	private JButton sortMeal;
+	private JButton sortPop;
+	private JButton saveItem;
+	private JButton btnCreateRecipe;
+	private JTextField itemNameBox;
+	private JComboBox foodTypeBox;
 	
 
 
@@ -173,8 +180,28 @@ public class FoodiUI {
 		foodPanel.setLayout(null);
 
 		listFoodItems = new List();
-		listFoodItems.setBounds(10, 10, 596, 220);
+		listFoodItems.setBounds(108, 34, 498, 196);
 		foodPanel.add(listFoodItems);
+		
+		JButton sortName = new JButton("Name");
+		sortName.setBounds(107, -1, 117, 29);
+		foodPanel.add(sortName);
+		
+		JButton sortCal = new JButton("Calories");
+		sortCal.setBounds(222, -1, 117, 29);
+		foodPanel.add(sortCal);
+		
+		sortMeal = new JButton("Meal");
+		sortMeal.setBounds(336, -1, 117, 29);
+		foodPanel.add(sortMeal);
+		
+		sortPop = new JButton("Popularity");
+		sortPop.setBounds(454, -1, 117, 29);
+		foodPanel.add(sortPop);
+		
+		saveItem = new JButton("Save");
+		saveItem.setBounds(6, 195, 99, 29);
+		foodPanel.add(saveItem);
 		
 		homePanel = new JPanel();
 		homePanel.setBounds(16, 138, 616, 230);
@@ -193,6 +220,19 @@ public class FoodiUI {
 		searchBar.setBounds(243, 44, 246, 26);
 		frame.getContentPane().add(searchBar);
 		searchBar.setColumns(10);
+		
+		btnCreateRecipe = new JButton("Create Recipe");
+		btnCreateRecipe.setBounds(0, 44, 117, 29);
+		btnCreateRecipe.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				createForm();
+				
+			}
+		});
+		frame.getContentPane().add(btnCreateRecipe);
+		
 		searchBar.addActionListener(new ActionListener() {
 
 			@Override
@@ -204,6 +244,76 @@ public class FoodiUI {
 		foodPanel.setVisible(false);
 		displayHome();
 		frame.setVisible(true);
+	}
+
+	protected void createForm() {
+		JFrame createframe = new JFrame();
+		createframe.setBackground(Color.WHITE);
+		createframe.setBounds(100, 100, 650, 400);
+		createframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		createframe.getContentPane().setLayout(null);
+		createframe.setAlwaysOnTop(true);
+		
+		foodTypeBox = new JComboBox();
+		foodTypeBox.setBounds(70, 21, 190, 27);
+		createframe.getContentPane().add(foodTypeBox);
+		
+		itemNameBox = new JTextField();
+		itemNameBox.setBounds(70, 74, 181, 26);
+		createframe.getContentPane().add(itemNameBox);
+		itemNameBox.setColumns(10);
+		
+		JTextField recipeUrlBox = new JTextField();
+		recipeUrlBox.setBounds(70, 114, 181, 26);
+		createframe.getContentPane().add(recipeUrlBox);
+		recipeUrlBox.setColumns(10);
+		
+		JTextField preptimeBox = new JTextField();
+		preptimeBox.setBounds(70, 154, 181, 26);
+		createframe.getContentPane().add(preptimeBox);
+		preptimeBox.setColumns(10);
+		
+		JComboBox mealBox = new JComboBox();
+		mealBox.setBounds(70, 194, 190, 27);
+		createframe.getContentPane().add(mealBox);
+		
+		JButton btnSubmit = new JButton("Create Recipe");
+		btnSubmit.setBounds(70, 234, 117, 29);
+		btnSubmit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				createFoodItem();
+				
+			}
+		});
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.setBounds(70, 274, 117, 29);
+		btnCancel.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				createframe.dispose();
+				
+			}
+		});
+		
+		createframe.getContentPane().add(btnCancel);
+		createframe.getContentPane().add(btnSubmit);
+		
+		createframe.setVisible(true);
+
+//		JPanel accountPanel = new JPanel();
+//		accountPanel.setBounds(16, 6, 628, 362);
+//		createframe.getContentPane().add(accountPanel);
+//		accountPanel.setLayout(null);
+//		accountPanel.setVisible(false);
+	}
+
+	protected void createFoodItem() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	protected void displayHome() {
@@ -414,7 +524,7 @@ public class FoodiUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				newAccount();
+				newAccount(loginframe);
 
 			}
 		});
@@ -430,7 +540,7 @@ public class FoodiUI {
 
 
 	}
-	protected void newAccount() {
+	protected void newAccount(JFrame loginframe) {
 		JFrame createframe = new JFrame();
 		createframe.setBackground(Color.WHITE);
 		createframe.setBounds(100, 100, 650, 400);
@@ -469,6 +579,8 @@ public class FoodiUI {
 				System.out.println("add to users");
 				//close frame
 				createframe.dispose();
+				//close initial login
+				loginframe.dispose();
 
 			}
 		});
