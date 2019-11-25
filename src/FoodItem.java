@@ -29,15 +29,10 @@ public abstract class FoodItem {
 		setMeal(meal);
 	}
 	//=================== Methods
-	/*  This method returns a JSON structure of the object FoodItem
+	/*  This method returns a tab deliminated structure of the object FoodItem
 	 *  @return String
 	 */
-	public abstract String toJSON();
-//		String json = "\nFoodItem" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
-//				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal();
-//		
-//		return json;
-//
+	public abstract String toFileFormat();
 	
 	//=================== Getter/Setter
 	public int getId() {
