@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class dbManager {
 
-	private HashMap<Integer, FoodItem> foods;
-	private HashMap<Integer, User> users;
+	public HashMap<Integer, FoodItem> foods;
+	public HashMap<String, User> users;
 	private Scanner read;
 	private final String FOODS = "FoodItems.txt";
 	private final String USERS = "Users.txt";
@@ -68,7 +68,7 @@ public class dbManager {
 				int line = 0;
 				while(read.hasNextLine()) {
 					String[] split = read.nextLine().split("\t");
-					users.put(line, new User(split[1], split[2], line));
+					users.put(split[1], new User(split[1], split[2]));
 
 
 					////////////////////////////
@@ -105,7 +105,7 @@ public class dbManager {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			for(int key : users.keySet()) {
+			for(String key : users.keySet()) {
 				pw.print(users.get(key).toJSON());
 			}
 			break;
@@ -130,13 +130,34 @@ public class dbManager {
 
 	//OVERLOADED
 	public boolean addItem(User u) {
-		if (users.containsKey(u.getId())) {
+		if (users.containsKey(u.getUsername())) {
 			return false;
 		}
-		users.put(u.getId(), u);
+		users.put(u.getUsername(), u);
 		return true;
 	}
 
+	public FoodItem[] getFoodsArray() {
+		FoodItem[] allfoods = new FoodItem[foods.size()];
+		int i = 0;
+		for(FoodItem f : foods.values()) {
+			allfoods[i] = f;
+			i++;
+		}
+		return allfoods;
+	}
+	
+	public String retrievePassword(String username) {
+		return users.get(username).getPassword();
+	}
+	
+	public User retrieveUser(String username) {
+		return users.get(username);
+	}
+	
+	public boolean containsUser(String username) {
+		return users.containsKey(username);
+	}
 
 
 }

@@ -3,20 +3,15 @@ import java.util.ArrayList;
 public class User {
 	private String username;
 	private String password;
-	private int id;
 	private ArrayList<Long> library = new ArrayList<>();
 	
-	
-	
-	
-	public User (String username, String password, int userId) {
+	public User (String username, String password) {
 		setUsername(username);
 		setPassword(password);
-		setId(userId);
 	}
 	
 	public User() {
-		this("","",-1);
+		this("","");
 	}
 
 	// =================== Getters/Setters =======================================
@@ -37,24 +32,7 @@ public class User {
 		this.library = library;
 	}
 	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-	
 	// =================== equals =============================================
-	
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -65,8 +43,6 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (id != other.id)
-			return false;
 		if (username == null) {
 			if (other.username != null)
 				return false;
@@ -114,11 +90,7 @@ public class User {
 	}
 	
 	public String toJSON() {
-		
-		String json = "\nUser" + "\t" + getId() + "\t" + getUsername() + "\t" +
-		getPassword() + "\t" + toString();
-		
+		String json = "\nUser\t" + getUsername() + "\t" + getPassword() + "\t" + toString();
 		return json;
-		
 	}
 }

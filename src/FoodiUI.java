@@ -49,6 +49,9 @@ public class FoodiUI {
 	
 	private JComboBox foodTypeBox;
 	
+	
+	private User currentUser = null;
+	
 	private boolean loggedIn = false;
 	private dbManager dbm = new dbManager();
 
@@ -63,14 +66,14 @@ public class FoodiUI {
 
 	FoodItem[] foods = new FoodItem[] {a,b,c,b1,a1,d1,e1};
 	
-	User u = new User("Abc","123",1);
-	User u1 = new User("123","abc",2);
-	User u2 = new User("bcd","321",3);
-	User u3 = new User("def","555",4);
-	User u4 = new User("Aaa","aaa",5);
-	User u5 = new User("Acdc","111",6);
-	User u6 = new User("c3po","r2d2",7);
-	User[] users = new User[] {u,u1,u2,u3,u4,u5,u6};
+//	User u = new User("Abc","123",1);
+//	User u1 = new User("123","abc",2);
+//	User u2 = new User("bcd","321",3);
+//	User u3 = new User("def","555",4);
+//	User u4 = new User("Aaa","aaa",5);
+//	User u5 = new User("Acdc","111",6);
+//	User u6 = new User("c3po","r2d2",7);
+//	User[] users = new User[] {u,u1,u2,u3,u4,u5,u6};
 	
 
 
@@ -659,16 +662,35 @@ public class FoodiUI {
 	protected boolean checkCredentials(String username, char[] pw) {
 
 		System.out.println("Checking username and password");
-		return (username != null && pw != null);
+//		return (username != null && pw != null);
+		
+		if (!(dbm.containsUser(username))) {
+			System.out.println("User does not exist");
+			return false;
+		}
+		
+		String password = new String(pw);
+		
+		if (!(dbm.retrievePassword(username)).equals(password)) {
+			System.out.println("Incorrect password");
+			return false;
+		}
+		
+		currentUser = dbm.retrieveUser(username);
+		
+		return true;
+		
+		
 	}
 	
 	///pre populates allFoods
 	private void testPopulate() {
-		for(int i = 0; i < foods.length; i++) {
-			if(foods[i] != null) {
-				listFoodItems.add(foods[i].toFileFormat());
-			}
-		}
+		
+//		for(int i = 0; i < foods.length; i++) {
+//			if(foods[i] != null) {
+//				listFoodItems.add(foods[i].toFileFormat());
+//			}
+//		}
 	}
 
 	protected void search() {
