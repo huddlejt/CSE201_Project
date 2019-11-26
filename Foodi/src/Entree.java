@@ -12,7 +12,7 @@ public class Entree extends FoodItem {
 
 	//=================== Methods
 	@Override
-	public String toJSON() {
+	public String toFileFormat() {
 		String json = "\nEntree" + "\t" + getId() + "\t" + getName() + "\t" + getRank() + "\t" + getCalories() +
 				"\t" + getRecipe() + "\t" + getPrepTime() + "\t" + getMeal();
 		

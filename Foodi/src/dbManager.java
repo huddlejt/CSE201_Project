@@ -96,7 +96,7 @@ public class dbManager {
 				e.printStackTrace();
 			}
 			for(int key : foods.keySet()) {
-				pw.print(foods.get(key).toJSON());
+				pw.print(foods.get(key).toFileFormat());
 			}
 			break;
 		case 1:
@@ -130,13 +130,22 @@ public class dbManager {
 
 	//OVERLOADED
 	public boolean addItem(User u) {
-		if (foods.containsKey(u.getId())) {
+		if (users.containsKey(u.getId())) {
 			return false;
 		}
 		users.put(u.getId(), u);
 		return true;
 	}
 
+	public FoodItem[] getFoodsArray() {
+		FoodItem[] allfoods = new FoodItem[foods.size()];
+		int i = 0;
+		for(FoodItem f : foods.values()) {
+			allfoods[i] = f;
+			i++;
+		}
+		return allfoods;
+	}
 
 
 }
