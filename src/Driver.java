@@ -16,15 +16,15 @@ public class Driver {
 		
 		FoodItem[] foods = new FoodItem[] {nullItem, popItem, a0, b0, a,b,c,b1,a1,d1,e1};
 		
-//		User u = new User("Abc","123",1);
-//		User u1 = new User("123","abc",2);
-//		User u2 = new User("bcd","321",3);
-//		User u3 = new User("def","555",4);
-//		User u4 = new User("Aaa","aaa",5);
-//		User u5 = new User("Acdc","111",6);
-//		User u6 = new User("c3po","r2d2",7);
+		User u = new User("Abc","123");
+		User u1 = new User("123","abc");
+		User u2 = new User("bcd","321");
+		User u3 = new User("def","555");
+		User u4 = new User("Aaa","aaa");
+		User u5 = new User("Acdc","111");
+		User u6 = new User("c3po","r2d2");
 		
-//		User[] users = new User[] {u,u1,u2,u3,u4,u5,u6};
+		User[] users = new User[] {u,u1,u2,u3,u4,u5,u6};
 		//Test dbManager
 		dbManager dbM = new dbManager();
 		
@@ -33,6 +33,13 @@ public class Driver {
 //			dbM.addItem(users[i]);
 //		}
 		
+//		for(int i = 0; i < foods.length; i++) {
+//			dbM.addItem(foods[i]);
+//		}
+		
+		System.out.println(foods[0]);
+		System.out.println(users[0]);
+		System.out.println(dbM.containsUser("Abc"));
 		
 		dbM.update(0);
 		dbM.update(1);

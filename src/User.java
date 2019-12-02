@@ -89,6 +89,10 @@ public class User {
 		return result;
 	}
 	
+	public boolean containsItem(long id) {
+		return library.contains(id);
+	}
+	
 	public String toJSON() {
 		String json = "\nUser\t" + getUsername() + "\t" + getPassword() + "\t" + toString();
 		return json;

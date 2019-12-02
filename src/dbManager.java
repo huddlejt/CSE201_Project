@@ -11,6 +11,7 @@ public class dbManager {
 	private final String FOODS = "FoodItems.txt";
 	private final String USERS = "Users.txt";
 	private PrintWriter pw;
+	public int idCount = 1;
 
 
 	public dbManager() {
@@ -43,7 +44,7 @@ public class dbManager {
 
 				while(read.hasNextLine()) {
 					String[] split = read.nextLine().split("\t");
-					System.out.println(split.length);
+					//System.out.println(split.length);
 					if(split[0].equals("Appetizer"))
 						foods.put(Integer.parseInt(split[1]), new Appetizer(Integer.parseInt(split[1]), split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), split[5], split[6], split[7]));
 					else if(split[0].equals("Beverage"))
@@ -51,11 +52,13 @@ public class dbManager {
 					else if(split[0].equals("Dessert"))
 						foods.put(Integer.parseInt(split[1]), new Dessert(Integer.parseInt(split[1]), split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), split[5], split[6], split[7]));
 					else if(split[0].equals("Entree"))
-						foods.put(Integer.parseInt(split[1]), new Appetizer(Integer.parseInt(split[1]), split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), split[5], split[6], split[7]));
+						foods.put(Integer.parseInt(split[1]), new Entree(Integer.parseInt(split[1]), split[2], Integer.parseInt(split[3]), Integer.parseInt(split[4]), split[5], split[6], split[7]));
 					else {
 						System.out.println("None matched");
 					}
+					idCount++;
 				}
+				idCount++;
 
 			}
 			else if(db == 1) {
@@ -65,9 +68,14 @@ public class dbManager {
 					e.printStackTrace();
 				}
 				//populate hashmap users
-				int line = 0;
+				if(read.hasNextLine())
+					//System.out.println("***");
+					read.nextLine();
+				
 				while(read.hasNextLine()) {
-					String[] split = read.nextLine().split("\t");
+					String line = read.nextLine();
+					//System.out.println("***" + line);
+					String[] split = line.split("\t");
 					users.put(split[1], new User(split[1], split[2]));
 
 
@@ -77,6 +85,7 @@ public class dbManager {
 
 			try {
 				read.close();
+				read = null;
 			}
 
 			catch(Exception e) {
@@ -99,6 +108,7 @@ public class dbManager {
 				pw.print(foods.get(key).toFileFormat());
 			}
 			break;
+		
 		case 1:
 			try {
 				pw = new PrintWriter(new File(USERS));
@@ -121,10 +131,17 @@ public class dbManager {
 
 	//OVERLOADED
 	public boolean addItem(FoodItem f) {
+		
+		f.setId(idCount);
+		System.out.println(idCount);
+		System.out.println(f.getId());
+		
 		if (foods.containsKey(f.getId())) {
+			System.out.println("Failed");
 			return false;
 		}
 		foods.put(f.getId(), f);
+		idCount++;
 		return true;
 	}
 
