@@ -1,30 +1,21 @@
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import java.awt.Color;
-
-import javax.management.ListenerNotFoundException;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JDesktopPane;
-import javax.swing.JMenuBar;
 import java.awt.List;
 import javax.swing.JPanel;
-import javax.swing.JList;
 import java.awt.Font;
-import javax.swing.JTable;
-import java.awt.Canvas;
-import java.awt.Label;
 import javax.swing.JComboBox;
 
 public class FoodiUI {
 
 	private JFrame frame;
-	
+
 	private JButton accountBtn;
 	private JButton btnEntrees;
 	private JButton btnAppetizers;
@@ -36,19 +27,25 @@ public class FoodiUI {
 	private JButton sortPop;
 	private JButton saveItem;
 	private JButton btnCreateRecipe;
-	
+
 	private List listFoodItems;
 	private List listSavedFoods;
 	private List featuredList;
-	
+
 	private JTextField searchBar;
 	private JTextField itemNameBox;
-	
+
 	private JPanel foodPanel;
 	private JPanel homePanel;
-	
-	private JComboBox foodTypeBox;
-	
+
+	private JLabel lblAccount = new JLabel();
+
+	private JComboBox<String> foodTypeBox;
+
+
+	@SuppressWarnings("unused")
+	private User currentUser = null;
+
 	private boolean loggedIn = false;
 	private dbManager dbm = new dbManager();
 
@@ -56,22 +53,22 @@ public class FoodiUI {
 	FoodItem a = new Appetizer(1, "A", 0, 12, "www.zuckit.com", "5min", "Bekfast");
 	FoodItem b = new Entree(2, "B", 1, 10, "www.example.com", "8min", "Lunch");
 	FoodItem c = new Entree(3, "C", 2, 2400, "www.badprogramming.com", "1hr", "Dinner");
-	Beverage b1 = new Beverage(007, "water", 1, 0, "", "", "All", 0);
-	Appetizer a1 = new Appetizer(006, "app", 2, 100, "asdf.com", "2min", "All");
-	Dessert d1 = new Dessert(8, "cake", 1, 50, "cake", "30min", "All");
-	Entree e1 = new Entree(010, "entree", 3, 100, "jkl.com", "4min", "All");
+	//	Beverage b1 = new Beverage(007, "water", 1, 0, "", "", "All", 0);
+	//	Appetizer a1 = new Appetizer(006, "app", 2, 100, "asdf.com", "2min", "All");
+	//	Dessert d1 = new Dessert(8, "cake", 1, 50, "cake", "30min", "All");
+	//	Entree e1 = new Entree(010, "entree", 3, 100, "jkl.com", "4min", "All");
 
-	FoodItem[] foods = new FoodItem[] {a,b,c,b1,a1,d1,e1};
-	
-	User u = new User("Abc","123",1);
-	User u1 = new User("123","abc",2);
-	User u2 = new User("bcd","321",3);
-	User u3 = new User("def","555",4);
-	User u4 = new User("Aaa","aaa",5);
-	User u5 = new User("Acdc","111",6);
-	User u6 = new User("c3po","r2d2",7);
-	User[] users = new User[] {u,u1,u2,u3,u4,u5,u6};
-	
+	FoodItem[] foods = new FoodItem[dbm.foods.size()];// {a,b,c,b1,a1,d1,e1};
+
+	//	User u = new User("Abc","123",1);
+	//	User u1 = new User("123","abc",2);
+	//	User u2 = new User("bcd","321",3);
+	//	User u3 = new User("def","555",4);
+	//	User u4 = new User("Aaa","aaa",5);
+	//	User u5 = new User("Acdc","111",6);
+	//	User u6 = new User("c3po","r2d2",7);
+	//	User[] users = new User[] {u,u1,u2,u3,u4,u5,u6};
+
 
 
 	/**
@@ -179,7 +176,7 @@ public class FoodiUI {
 		});
 		btnAllfoods.setBounds(137, 97, 99, 29);
 		frame.getContentPane().add(btnAllfoods);
-		
+
 		JButton homeBtn = new JButton("Home");
 		homeBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -197,79 +194,79 @@ public class FoodiUI {
 		listFoodItems = new List();
 		listFoodItems.setBounds(108, 34, 498, 196);
 		foodPanel.add(listFoodItems);
-		
+
 		JButton sortName = new JButton("Name");
 		sortName.setBounds(107, -1, 117, 29);
 		sortName.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//implement sort
-				
+
 			}
 		});
 		foodPanel.add(sortName);
-		
+
 		JButton sortCal = new JButton("Calories");
 		sortCal.setBounds(222, -1, 117, 29);
 		sortCal.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//implement sort
-				
+
 			}
 		});
 		foodPanel.add(sortCal);
-		
+
 		sortMeal = new JButton("Meal");
 		sortMeal.setBounds(336, -1, 117, 29);
 		sortMeal.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//implement sort
-				
+
 			}
 		});
 		foodPanel.add(sortMeal);
-		
+
 		sortPop = new JButton("Popularity");
 		sortPop.setBounds(454, -1, 117, 29);
 		sortPop.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//implement sort
-				
+
 			}
 		});
 		foodPanel.add(sortPop);
-		
+
 		saveItem = new JButton("Save");
 		saveItem.setBounds(6, 195, 99, 29);
 		saveItem.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!loggedIn) {
 					displayWarning("You are not logged in!");
 				}
 				//add item to user's db
-				
+
 			}
 		});
 		foodPanel.add(saveItem);
-		
+
 		homePanel = new JPanel();
 		homePanel.setBounds(16, 138, 616, 230);
 		frame.getContentPane().add(homePanel);
 		homePanel.setLayout(null);
-		
+
 		JLabel lblFOD = new JLabel("Featured items:");
 		lblFOD.setBounds(20, 20, 122, 16);
 		homePanel.add(lblFOD);
-		
+
 		featuredList = new List();
 		featuredList.setBounds(20, 40, 596, 220);
 		homePanel.add(featuredList);
@@ -278,11 +275,11 @@ public class FoodiUI {
 		searchBar.setBounds(243, 44, 246, 26);
 		frame.getContentPane().add(searchBar);
 		searchBar.setColumns(10);
-		
+
 		btnCreateRecipe = new JButton("Create Recipe");
 		btnCreateRecipe.setBounds(0, 44, 117, 29);
 		btnCreateRecipe.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!loggedIn) {
@@ -290,11 +287,11 @@ public class FoodiUI {
 				}
 				else
 					createForm();
-				
+
 			}
 		});
 		frame.getContentPane().add(btnCreateRecipe);
-		
+
 		searchBar.addActionListener(new ActionListener() {
 
 			@Override
@@ -315,75 +312,137 @@ public class FoodiUI {
 		createframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		createframe.getContentPane().setLayout(null);
 		createframe.setAlwaysOnTop(true);
-		
-		foodTypeBox = new JComboBox();
+
+		foodTypeBox = new JComboBox<String>();
 		foodTypeBox.setBounds(70, 21, 190, 27);
+
+		foodTypeBox.addItem("Appetizer");
+		foodTypeBox.addItem("Beverage");
+		foodTypeBox.addItem("Dessert");
+		foodTypeBox.addItem("Entree");
+
 		createframe.getContentPane().add(foodTypeBox);
-		
+
 		itemNameBox = new JTextField();
 		itemNameBox.setBounds(70, 74, 181, 26);
 		createframe.getContentPane().add(itemNameBox);
 		itemNameBox.setColumns(10);
-		
+
+		JTextField caloriesBox = new JTextField();
+		caloriesBox.setBounds(70, 114, 181, 26);
+		createframe.getContentPane().add(caloriesBox);
+		caloriesBox.setColumns(10);
+
 		JTextField recipeUrlBox = new JTextField();
-		recipeUrlBox.setBounds(70, 114, 181, 26);
+		recipeUrlBox.setBounds(70, 154, 181, 26);
 		createframe.getContentPane().add(recipeUrlBox);
 		recipeUrlBox.setColumns(10);
-		
+
 		JTextField preptimeBox = new JTextField();
-		preptimeBox.setBounds(70, 154, 181, 26);
+		preptimeBox.setBounds(70, 194, 181, 26);
 		createframe.getContentPane().add(preptimeBox);
 		preptimeBox.setColumns(10);
-		
-		JComboBox mealBox = new JComboBox();
-		mealBox.setBounds(70, 194, 190, 27);
+
+		JComboBox<String> mealBox = new JComboBox<String>();
+		mealBox.setBounds(70, 234, 190, 27);
+		mealBox.addItem("Breakfast");
+		mealBox.addItem("Lunch");
+		mealBox.addItem("Dinner");
+		mealBox.addItem("Any");
 		createframe.getContentPane().add(mealBox);
-		
+
 		JButton btnSubmit = new JButton("Create Recipe");
-		btnSubmit.setBounds(70, 234, 117, 29);
+		btnSubmit.setBounds(70, 274, 117, 29);
 		btnSubmit.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				createFoodItem();
-				
+
+				String name = itemNameBox.getText();
+				int calories = Integer.parseInt(caloriesBox.getText());
+				String recipe = recipeUrlBox.getText();
+				String prepTime = preptimeBox.getText();
+				String meal = (String) mealBox.getSelectedItem();
+				String foodType = (String) foodTypeBox.getSelectedItem();
+
+
+				createFoodItem(foodType, name, calories, recipe, prepTime, meal);
+				createframe.dispose();
+
 			}
 		});
-		
+
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(70, 274, 117, 29);
+		btnCancel.setBounds(70, 294, 117, 29);
 		btnCancel.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				createframe.dispose();
-				
+
 			}
 		});
-		
+
 		createframe.getContentPane().add(btnCancel);
 		createframe.getContentPane().add(btnSubmit);
-		
+
 		createframe.setVisible(true);
 
-//		JPanel accountPanel = new JPanel();
-//		accountPanel.setBounds(16, 6, 628, 362);
-//		createframe.getContentPane().add(accountPanel);
-//		accountPanel.setLayout(null);
-//		accountPanel.setVisible(false);
+		//JPanel accountPanel = new JPanel();
+		//accountPanel.setBounds(16, 6, 628, 362);
+		//createframe.getContentPane().add(accountPanel);
+		//accountPanel.setLayout(null);
+		//accountPanel.setVisible(false);
 	}
 
-	protected void createFoodItem() {
+	protected void createFoodItem(String type, String name, int calories, String recipe, String prepTime, String meal) {
 		// TODO Auto-generated method stub
-		
+
+		int id = -1; // << change this
+
+		switch(type) {
+		case "Appetizer":
+			dbm.addItem(new Appetizer(id ,name, 0, calories, recipe, prepTime, meal));
+			break;
+		case "Beverage":
+
+			// alcohol content currently set to zero for all foods
+
+			dbm.addItem(new Beverage(id ,name, 0, calories, recipe, prepTime, meal, 0));
+			break;
+
+
+		case "Dessert":
+			dbm.addItem(new Dessert(id ,name, 0, calories, recipe, prepTime, meal));
+			break;
+
+		case "Entree":
+			dbm.addItem(new Entree(id ,name, 0, calories, recipe, prepTime, meal));
+			break;
+		}
+
+		dbm.update(0);
+
+
+		// figure out how we determine IDs
+		// figure out how to account beverages and alcohol
+		//
+
+
+
 	}
 
 	protected void displayHome() {
 		featuredList.removeAll();
 		homePanel.setVisible(true);
 		foodPanel.setVisible(false);
-		featuredList.add(foods[0].toString());
-		
+		//ensure random value is never null
+		int key = (int) (Math.random() * dbm.idCount);
+		while (dbm.foods.get(key) == null)
+			key = (int) (Math.random() * dbm.idCount);
+
+		featuredList.add(dbm.foods.get(key).toFileFormat());
+
 	}
 
 	protected void displayAllFoods() {
@@ -391,9 +450,9 @@ public class FoodiUI {
 			foodPanel.setVisible(true);
 		}
 		listFoodItems.removeAll();
-		for(int i = 0; i < foods.length; i++) {
-			if(foods[i] != null) {
-				listFoodItems.add(foods[i].toFileFormat());
+		for(int i = 0; i < dbm.idCount; i++) {
+			if(dbm.foods.get(i) != null) {
+				listFoodItems.add(dbm.foods.get(i).toFileFormat());
 			}
 		}
 
@@ -404,11 +463,18 @@ public class FoodiUI {
 			foodPanel.setVisible(true);
 		}
 		listFoodItems.removeAll();
-		for(int i = 0; i < foods.length; i++) {
-			if(foods[i] instanceof Dessert) {
-				listFoodItems.add(foods[i].toFileFormat());
+		for(int i = 0; i < dbm.idCount; i++) {
+			FoodItem f = dbm.foods.get(i);
+			if(f != null) {
+				if(f instanceof Dessert)
+					listFoodItems.add(dbm.foods.get(i).toFileFormat());
 			}
 		}
+		//		for(int i = 0; i < foods.length; i++) {
+		//			if(foods[i] instanceof Dessert) {
+		//				listFoodItems.add(foods[i].toFileFormat());
+		//			}
+		//		}
 	}
 
 	protected void displayBeverages() {
@@ -416,11 +482,18 @@ public class FoodiUI {
 			foodPanel.setVisible(true);
 		}
 		listFoodItems.removeAll();
-		for(int i = 0; i < foods.length; i++) {
-			if(foods[i] instanceof Beverage) {
-				listFoodItems.add(foods[i].toFileFormat());
+		for(int i = 0; i < dbm.idCount; i++) {
+			FoodItem f = dbm.foods.get(i);
+			if(f != null) {
+				if(f instanceof Beverage)
+					listFoodItems.add(dbm.foods.get(i).toFileFormat());
 			}
 		}
+		//		for(int i = 0; i < foods.length; i++) {
+		//			if(foods[i] instanceof Beverage) {
+		//				listFoodItems.add(foods[i].toFileFormat());
+		//			}
+		//		}
 	}
 
 	protected void displayAppetizers() {
@@ -428,11 +501,19 @@ public class FoodiUI {
 			foodPanel.setVisible(true);
 		}
 		listFoodItems.removeAll();
-		for(int i = 0; i < foods.length; i++) {
-			if(foods[i] instanceof Appetizer) {
-				listFoodItems.add(foods[i].toFileFormat());
+
+		for(int i = 0; i < dbm.idCount; i++) {
+			FoodItem f = dbm.foods.get(i);
+			if(f != null) {
+				if(f instanceof Appetizer)
+					listFoodItems.add(dbm.foods.get(i).toFileFormat());
 			}
 		}
+		//		for(int i = 0; i < foods.length; i++) {
+		//			if(foods[i] instanceof Appetizer) {
+		//				listFoodItems.add(foods[i].toFileFormat());
+		//			}
+		//		}
 	}
 
 	protected void displayEntrees() {
@@ -440,11 +521,19 @@ public class FoodiUI {
 			foodPanel.setVisible(true);
 		}
 		listFoodItems.removeAll();
-		for(int i = 0; i < foods.length; i++) {
-			if(foods[i] instanceof Entree) {
-				listFoodItems.add(foods[i].toFileFormat());
+
+		for(int i = 0; i < dbm.idCount; i++) {
+			FoodItem f = dbm.foods.get(i);
+			if(f != null) {
+				if(f instanceof Entree)
+					listFoodItems.add(dbm.foods.get(i).toFileFormat());
 			}
 		}
+		//		for(int i = 0; i < foods.length; i++) {
+		//			if(foods[i] instanceof Entree) {
+		//				listFoodItems.add(foods[i].toFileFormat());
+		//			}
+		//		}
 	}
 
 	private void displayAccount() {
@@ -473,7 +562,6 @@ public class FoodiUI {
 			lblSavedItems.setBounds(195, 102, 86, 16);
 			accountPanel.add(lblSavedItems);
 
-			JLabel lblAccount = new JLabel("UsrName");
 			lblAccount.setBounds(9, 6, 77, 16);
 			accountPanel.add(lblAccount);
 
@@ -548,6 +636,8 @@ public class FoodiUI {
 		if(loggedIn) {
 			loggedIn = false;
 			loginBtn.setText("Login");
+			currentUser = null;
+
 			return;
 		}
 		//open new window
@@ -574,6 +664,8 @@ public class FoodiUI {
 				if(checkCredentials(usernameField.getText(), passwordField.getPassword())) {
 					loggedIn = true;
 					loginBtn.setText("Logout");
+					lblAccount.setText(usernameField.getText());
+					currentUser = dbm.users.get(usernameField.getText());
 					loginframe.dispose();
 				}
 
@@ -602,6 +694,7 @@ public class FoodiUI {
 
 
 	}
+
 	protected void newAccount(JFrame loginframe) {
 		JFrame createframe = new JFrame();
 		createframe.setBackground(Color.WHITE);
@@ -616,7 +709,7 @@ public class FoodiUI {
 
 		JPasswordField passwordField = new JPasswordField();
 		passwordField.setBounds(175, 160, 260, 26);
-		
+
 		JPasswordField passwordField1 = new JPasswordField();
 		passwordField1.setBounds(175, 190, 260, 26);
 
@@ -659,17 +752,40 @@ public class FoodiUI {
 	protected boolean checkCredentials(String username, char[] pw) {
 
 		System.out.println("Checking username and password");
-		return (username != null && pw != null);
+		//		return (username != null && pw != null);
+
+		if (!(dbm.containsUser(username))) {
+			System.out.println("User does not exist");
+			return false;
+		}
+
+		String password = new String(pw);
+
+		if (!(dbm.retrievePassword(username)).equals(password)) {
+			System.out.println("Incorrect password");
+			return false;
+		}
+
+		currentUser = dbm.retrieveUser(username);
+
+		return true;
+
+
 	}
-	
+
 	///pre populates allFoods
 	private void testPopulate() {
-		
-//		for(int i = 0; i < foods.length; i++) {
-//			if(foods[i] != null) {
-//				listFoodItems.add(foods[i].toFileFormat());
-//			}
-//		}
+		int i = 0;
+		for(int k : dbm.foods.keySet()) {
+			foods[i] = (dbm.foods.get(k));
+			i++;
+		}
+
+		//		for(int i = 0; i < foods.length; i++) {
+		//			if(foods[i] != null) {
+		//				listFoodItems.add(foods[i].toFileFormat());
+		//			}
+		//		}
 	}
 
 	protected void search() {

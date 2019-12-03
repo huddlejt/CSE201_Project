@@ -33,12 +33,6 @@ public class Driver {
 //			dbM.addItem(users[i]);
 //		}
 		
-//		for(int i = 0; i < foods.length; i++) {
-//			dbM.addItem(foods[i]);
-//		}
-		
-		System.out.println(foods[0]);
-		System.out.println(users[0]);
 		System.out.println(dbM.containsUser("Abc"));
 		
 		dbM.update(0);
