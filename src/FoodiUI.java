@@ -3,6 +3,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -215,7 +217,7 @@ public class FoodiUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//implement sort
-				
+
 				sort(1);
 
 			}
@@ -257,6 +259,15 @@ public class FoodiUI {
 					displayWarning("You are not logged in!");
 				}
 				//add item to user's db
+				else {
+					String str = listFoodItems.getSelectedItem();
+					String[] parts = str.split("\t");
+					currentUser.saveToLibrary(Integer.parseInt(parts[1]));
+					//update references
+					dbm.users.put(currentUser.getUsername(), currentUser);
+					dbm.update(1);
+					System.out.println("ADDED");
+				}
 
 			}
 		});
@@ -295,6 +306,41 @@ public class FoodiUI {
 			}
 		});
 		frame.getContentPane().add(btnCreateRecipe);
+		
+		JButton btnFAQ = new JButton("FAQ");
+		btnFAQ.setBounds(0, 7, 58, 29);
+		frame.getContentPane().add(btnFAQ);
+		btnFAQ.addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFrame createframe = new JFrame();
+				createframe.setBackground(Color.WHITE);
+				createframe.setBounds(100, 100, 650, 400);
+				createframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				createframe.getContentPane().setLayout(null);
+				createframe.setAlwaysOnTop(true);
+				JScrollPane faqs = new JScrollPane();
+				faqs.setBounds(50, 50, 500, 350);
+				JButton exit = new JButton("Exit");
+				exit.setBounds(20, 20, 50, 30);
+				exit.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						createframe.dispose();
+						
+					}
+				});
+				JTextField content = new JTextField("THIS WILL BE FAQS");
+				content.setBounds(0, 0, 475, 300);
+				faqs.add(content);
+				createframe.getContentPane().add(faqs);
+				createframe.getContentPane().add(exit);
+				createframe.setVisible(true);
+				
+			}
+		});
 
 		searchBar.addActionListener(new ActionListener() {
 
@@ -317,8 +363,11 @@ public class FoodiUI {
 		createframe.getContentPane().setLayout(null);
 		createframe.setAlwaysOnTop(true);
 
+		JLabel typeLbl = new JLabel("Food Type:");
+		typeLbl.setBounds(70, 0, 120, 20);
+		
 		foodTypeBox = new JComboBox<String>();
-		foodTypeBox.setBounds(70, 21, 190, 27);
+		foodTypeBox.setBounds(70, 30, 190, 27);
 
 		foodTypeBox.addItem("Appetizer");
 		foodTypeBox.addItem("Beverage");
@@ -326,29 +375,44 @@ public class FoodiUI {
 		foodTypeBox.addItem("Entree");
 
 		createframe.getContentPane().add(foodTypeBox);
-
+		
+		JLabel nameLbl = new JLabel("Food Name:");
+		nameLbl.setBounds(70, 60, 120, 20);
+		
 		itemNameBox = new JTextField();
-		itemNameBox.setBounds(70, 74, 181, 26);
+		itemNameBox.setBounds(70, 84, 181, 26);
 		createframe.getContentPane().add(itemNameBox);
 		itemNameBox.setColumns(10);
 
+		JLabel calLbl = new JLabel("Calories:");
+		calLbl.setBounds(70, 115, 60, 20);
+		
 		JTextField caloriesBox = new JTextField();
-		caloriesBox.setBounds(70, 114, 181, 26);
+		caloriesBox.setBounds(70, 135, 181, 26);
 		createframe.getContentPane().add(caloriesBox);
 		caloriesBox.setColumns(10);
-
+		
+		JLabel urlLbl = new JLabel("Website:");
+		urlLbl.setBounds(70, 160, 60, 20);
+		
 		JTextField recipeUrlBox = new JTextField();
-		recipeUrlBox.setBounds(70, 154, 181, 26);
+		recipeUrlBox.setBounds(70, 180, 181, 26);
 		createframe.getContentPane().add(recipeUrlBox);
 		recipeUrlBox.setColumns(10);
+		
+		JLabel prepLbl = new JLabel("Preparation Time:");
+		prepLbl.setBounds(70, 200, 160, 20);
 
 		JTextField preptimeBox = new JTextField();
-		preptimeBox.setBounds(70, 194, 181, 26);
+		preptimeBox.setBounds(70, 224, 181, 26);
 		createframe.getContentPane().add(preptimeBox);
 		preptimeBox.setColumns(10);
 
+		JLabel mealLbl = new JLabel("Meal:");
+		mealLbl.setBounds(70, 254, 60, 20);
+		
 		JComboBox<String> mealBox = new JComboBox<String>();
-		mealBox.setBounds(70, 234, 190, 27);
+		mealBox.setBounds(70, 274, 190, 27);
 		mealBox.addItem("Breakfast");
 		mealBox.addItem("Lunch");
 		mealBox.addItem("Dinner");
@@ -356,7 +420,7 @@ public class FoodiUI {
 		createframe.getContentPane().add(mealBox);
 
 		JButton btnSubmit = new JButton("Create Recipe");
-		btnSubmit.setBounds(70, 274, 117, 29);
+		btnSubmit.setBounds(70, 304, 117, 29);
 		btnSubmit.addActionListener(new ActionListener() {
 
 			@Override
@@ -377,7 +441,7 @@ public class FoodiUI {
 		});
 
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(70, 294, 117, 29);
+		btnCancel.setBounds(70, 334, 117, 29);
 		btnCancel.addActionListener(new ActionListener() {
 
 			@Override
@@ -389,6 +453,12 @@ public class FoodiUI {
 
 		createframe.getContentPane().add(btnCancel);
 		createframe.getContentPane().add(btnSubmit);
+		createframe.getContentPane().add(mealLbl);
+		createframe.getContentPane().add(prepLbl);
+		createframe.getContentPane().add(urlLbl);
+		createframe.getContentPane().add(calLbl);
+		createframe.getContentPane().add(nameLbl);
+		createframe.getContentPane().add(typeLbl);
 
 		createframe.setVisible(true);
 
@@ -558,9 +628,17 @@ public class FoodiUI {
 			accountPanel.setLayout(null);
 			accountPanel.setVisible(false);
 
-			listSavedFoods = new List();
-			accountPanel.add(listSavedFoods);
+			listSavedFoods = new List();	
 			listSavedFoods.setBounds(129, 146, 489, 206);
+			//populate List
+			ArrayList<Integer> items = new ArrayList<>(currentUser.getLibrary());
+
+			for(int i = 0; i < items.size(); i++) {
+				System.out.println(items.get(i));
+				int index = items.get(i);
+				listSavedFoods.add(dbm.foods.get(index).toString());
+			}
+			accountPanel.add(listSavedFoods);
 
 			JLabel lblSavedItems = new JLabel("Saved Items");
 			lblSavedItems.setBounds(195, 102, 86, 16);
@@ -572,7 +650,7 @@ public class FoodiUI {
 			JButton btnNewButton = new JButton("Change Password");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					System.out.println("password change requested");
+					newPassword(accountframe);
 				}
 			});
 			btnNewButton.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
@@ -596,10 +674,7 @@ public class FoodiUI {
 			else {
 				accountPanel.setVisible(true);
 			}
-			listSavedFoods.removeAll();
-			listSavedFoods.add(a.toFileFormat());
-			listSavedFoods.add(b.toFileFormat());
-			listSavedFoods.add(c.toFileFormat());
+
 			accountframe.getContentPane().add(accountPanel);
 			accountframe.setVisible(true);
 
@@ -608,6 +683,69 @@ public class FoodiUI {
 
 
 
+	}
+	protected void newPassword(JFrame loginframe) {
+		JFrame createframe = new JFrame();
+		createframe.setBackground(Color.WHITE);
+		createframe.setBounds(100, 100, 650, 400);
+		createframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		createframe.getContentPane().setLayout(null);
+		createframe.setAlwaysOnTop(true);
+
+		JPasswordField oldPasswordField = new JPasswordField();
+		oldPasswordField.setBounds(175, 120, 260, 26);
+		oldPasswordField.setColumns(10);
+
+		JTextField passwordField = new JTextField();
+		passwordField.setBounds(175, 160, 260, 26);
+
+		JTextField passwordField1 = new JTextField();
+		passwordField1.setBounds(175, 190, 260, 26);
+
+
+		JButton loginBtn2 = new JButton("Cancel");
+		loginBtn2.setBounds(305, 290, 50, 26);
+		loginBtn2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				createframe.dispose();
+
+			}
+		});
+		JButton createAccountBtn = new JButton("Confirm");
+		createAccountBtn.setBounds(305, 230, 50, 26);
+		createAccountBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!passwordField.getText().equals(passwordField1.getText())) {
+					displayWarning("New passwords do not match!");
+					return;
+				}
+				if(checkCredentials(currentUser.getUsername(), oldPasswordField.getPassword())) {
+					currentUser.setPassword(passwordField.getText());
+					//update references
+					dbm.addItem(currentUser);
+					dbm.update(1);
+					//close frame
+					createframe.dispose();
+					//close initial login
+					loginframe.dispose();
+				}
+				else {
+					displayWarning("Incorrect password!");
+				}
+
+			}
+		});
+
+		createframe.getContentPane().add(oldPasswordField);
+		createframe.getContentPane().add(passwordField);
+		createframe.getContentPane().add(passwordField1);
+		createframe.getContentPane().add(loginBtn2);
+		createframe.getContentPane().add(createAccountBtn);
+		createframe.setVisible(true);
 	}
 
 	private void displayWarning(String string) {
@@ -791,8 +929,8 @@ public class FoodiUI {
 		//			}
 		//		}
 	}
-	
-	
+
+
 	protected void search(String input) {
 		if(!(foodPanel.isVisible()) ) {
 			foodPanel.setVisible(true);
@@ -804,27 +942,27 @@ public class FoodiUI {
 			}
 		}
 	}
-	
+
 	protected void sort(int type) {
-		
+
 		if(!(foodPanel.isVisible()) ) {
 			foodPanel.setVisible(true);
 		}
-		
 
-//		String[] food = listFoodItems.getItems();
-//		for(int i = 0; i < food.length; i++) {
-//			System.out.println(food[i]);
-//		}
 
-		
+		//		String[] food = listFoodItems.getItems();
+		//		for(int i = 0; i < food.length; i++) {
+		//			System.out.println(food[i]);
+		//		}
+
+
 		FoodItem[] foodlist = convert();
 		FoodItem temp;
-		
-//		for(int i = 0; i < foodlist.length; i++) {
-//			System.out.println(foodlist[i]);
-//		}
-//		
+
+		//		for(int i = 0; i < foodlist.length; i++) {
+		//			System.out.println(foodlist[i]);
+		//		}
+		//		
 		switch (type) {
 		case 0:
 			// Name
@@ -875,27 +1013,27 @@ public class FoodiUI {
 			}
 			break;
 		}
-		
+
 		listFoodItems.removeAll();
-		
-//		for (int i = 0; i < foodlist.length; i++) {
-//			System.out.println(foodlist[i]);
-//		}
-		
+
+		//		for (int i = 0; i < foodlist.length; i++) {
+		//			System.out.println(foodlist[i]);
+		//		}
+
 		for (int i = 0; i < foodlist.length; i++) {
-			
-			
-			
+
+
+
 			listFoodItems.add(foodlist[i].toFileFormat());
 		}
 	}
-	
+
 	protected FoodItem[] convert() {
 		String[] temp = listFoodItems.getItems();
 		FoodItem[] result = new FoodItem[temp.length];
-		
-		
-		
+
+
+
 		for (int i = 0; i < temp.length; i++) {
 			String[] format = temp[i].split("\t");
 			System.out.println(format[0]);
@@ -912,7 +1050,7 @@ public class FoodiUI {
 				result[i] = new Beverage(Integer.parseInt(format[1]), format[2], Integer.parseInt(format[3]), Integer.parseInt(format[4]), format[5], format[6], format[7], 0);
 			}
 		}
-		
+
 		return result;
 	}
 }

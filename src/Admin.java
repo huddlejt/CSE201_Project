@@ -10,8 +10,8 @@ public class Admin extends User {
 	@Override
 	public String toJSON() {
 
-		String json = "Admin\t" + getUsername() + "\t" +
-		getPassword() + "\t" + toString() + "\n";
+		String json = "\nAdmin\t" + getUsername() + "\t" +
+		getPassword() + "\t" + toString();
 		
 		return json;
 		

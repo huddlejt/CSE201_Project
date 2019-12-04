@@ -71,7 +71,7 @@ public class dbManager {
 				if(read.hasNextLine())
 					//System.out.println("***");
 					read.nextLine();
-				
+
 				while(read.hasNextLine()) {
 					String line = read.nextLine();
 					//System.out.println("***" + line);
@@ -108,7 +108,7 @@ public class dbManager {
 				pw.print(foods.get(key).toFileFormat());
 			}
 			break;
-		
+
 		case 1:
 			try {
 				pw = new PrintWriter(new File(USERS));
@@ -131,11 +131,11 @@ public class dbManager {
 
 	//OVERLOADED
 	public boolean addItem(FoodItem f) {
-		
+
 		f.setId(idCount);
 		System.out.println(idCount);
 		System.out.println(f.getId());
-		
+
 		if (foods.containsKey(f.getId())) {
 			System.out.println("Failed");
 			return false;
@@ -163,15 +163,15 @@ public class dbManager {
 		}
 		return allfoods;
 	}
-	
+
 	public String retrievePassword(String username) {
 		return users.get(username).getPassword();
 	}
-	
+
 	public User retrieveUser(String username) {
 		return users.get(username);
 	}
-	
+
 	public boolean containsUser(String username) {
 		return users.containsKey(username);
 	}
