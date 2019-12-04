@@ -11,7 +11,7 @@ public class Admin extends User {
 	public String toJSON() {
 
 		String json = "\nAdmin\t" + getUsername() + "\t" +
-		getPassword() + "\t" + toString();
+		getPassword() + "\t" + exportLibrary();
 		
 		return json;
 		

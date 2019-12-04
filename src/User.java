@@ -14,6 +14,11 @@ public class User {
 		this("","");
 	}
 
+	public User(String string, String string2, String string3) {
+		this(string, string2);
+		setLibrary(string3.split(","));
+	}
+
 	// =================== Getters/Setters =======================================
 	public String getUsername() {
 		return username;
@@ -34,6 +39,16 @@ public class User {
 	
 	public void setLibrary(ArrayList<Integer> library) {
 		this.library = library;
+	}
+	
+	private void setLibrary(String[] split) {
+		for(String s : split) {
+			try {
+				library.add(Integer.parseInt(s));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	// =================== equals =============================================
@@ -78,7 +93,7 @@ public class User {
 		}
 	}
 
-	private String exportLibrary() {
+	public String exportLibrary() {
 		String result = "";
 		for(int i = 0; i < library.size(); i++) {
 			if(i == library.size() - 1) {

@@ -76,7 +76,10 @@ public class dbManager {
 					String line = read.nextLine();
 					//System.out.println("***" + line);
 					String[] split = line.split("\t");
-					users.put(split[1], new User(split[1], split[2]));
+					if(split[0].equals("User"))
+						users.put(split[1], new User(split[1], split[2], split[3]));
+					else
+						users.put(split[1], new Admin(split[1], split[2]));
 
 
 					////////////////////////////
