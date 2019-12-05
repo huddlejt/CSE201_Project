@@ -34,6 +34,9 @@ public abstract class FoodItem {
 	 */
 	public abstract String toFileFormat();
 	
+	public String display() {
+		return getId() + "\t\t" + getName() + "\t\tCalories: " + getCalories() + "\t\t" + getMeal();
+	}
 	//=================== Getter/Setter
 	public int getId() {
 		return id;

@@ -267,7 +267,7 @@ public class Foodi {
 				else {
 					String str = listFoodItems.getSelectedItem();
 					String[] parts = str.split("\t");
-					currentUser.saveToLibrary(Integer.parseInt(parts[1]));
+					currentUser.saveToLibrary(Integer.parseInt(parts[0]));
 					//update references
 					dbm.users.put(currentUser.getUsername(), currentUser);
 					dbm.update(1);
@@ -524,7 +524,7 @@ public class Foodi {
 		while (dbm.foods.get(key) == null)
 			key = (int) (Math.random() * dbm.idCount);
 
-		featuredList.add(dbm.foods.get(key).toFileFormat());
+		featuredList.add(dbm.foods.get(key).display());
 
 	}
 
@@ -535,7 +535,7 @@ public class Foodi {
 		listFoodItems.removeAll();
 		for(int i = 0; i < dbm.idCount; i++) {
 			if(dbm.foods.get(i) != null) {
-				listFoodItems.add(dbm.foods.get(i).toFileFormat());
+				listFoodItems.add(dbm.foods.get(i).display());
 			}
 		}
 
@@ -550,14 +550,9 @@ public class Foodi {
 			FoodItem f = dbm.foods.get(i);
 			if(f != null) {
 				if(f instanceof Dessert)
-					listFoodItems.add(dbm.foods.get(i).toFileFormat());
+					listFoodItems.add(dbm.foods.get(i).display());
 			}
 		}
-		//		for(int i = 0; i < foods.length; i++) {
-		//			if(foods[i] instanceof Dessert) {
-		//				listFoodItems.add(foods[i].toFileFormat());
-		//			}
-		//		}
 	}
 
 	protected void displayBeverages() {
@@ -569,14 +564,9 @@ public class Foodi {
 			FoodItem f = dbm.foods.get(i);
 			if(f != null) {
 				if(f instanceof Beverage)
-					listFoodItems.add(dbm.foods.get(i).toFileFormat());
+					listFoodItems.add(dbm.foods.get(i).display());
 			}
 		}
-		//		for(int i = 0; i < foods.length; i++) {
-		//			if(foods[i] instanceof Beverage) {
-		//				listFoodItems.add(foods[i].toFileFormat());
-		//			}
-		//		}
 	}
 
 	protected void displayAppetizers() {
@@ -589,14 +579,9 @@ public class Foodi {
 			FoodItem f = dbm.foods.get(i);
 			if(f != null) {
 				if(f instanceof Appetizer)
-					listFoodItems.add(dbm.foods.get(i).toFileFormat());
+					listFoodItems.add(dbm.foods.get(i).display());
 			}
 		}
-		//		for(int i = 0; i < foods.length; i++) {
-		//			if(foods[i] instanceof Appetizer) {
-		//				listFoodItems.add(foods[i].toFileFormat());
-		//			}
-		//		}
 	}
 
 	protected void displayEntrees() {
@@ -609,14 +594,9 @@ public class Foodi {
 			FoodItem f = dbm.foods.get(i);
 			if(f != null) {
 				if(f instanceof Entree)
-					listFoodItems.add(dbm.foods.get(i).toFileFormat());
+					listFoodItems.add(dbm.foods.get(i).display());
 			}
 		}
-		//		for(int i = 0; i < foods.length; i++) {
-		//			if(foods[i] instanceof Entree) {
-		//				listFoodItems.add(foods[i].toFileFormat());
-		//			}
-		//		}
 	}
 
 	private void displayAccount() {
@@ -646,7 +626,7 @@ public class Foodi {
 				System.out.println(items.get(i));
 				int index = items.get(i);
 				if(index != -1)
-					listSavedFoods.add(dbm.foods.get(index).toString());
+					listSavedFoods.add(dbm.foods.get(index).display());
 			}
 			accountPanel.add(listSavedFoods);
 
@@ -980,12 +960,6 @@ public class Foodi {
 			foods[i] = (dbm.foods.get(k));
 			i++;
 		}
-
-		//		for(int i = 0; i < foods.length; i++) {
-		//			if(foods[i] != null) {
-		//				listFoodItems.add(foods[i].toFileFormat());
-		//			}
-		//		}
 	}
 
 
@@ -996,7 +970,7 @@ public class Foodi {
 		listFoodItems.removeAll();
 		for(int i = 0; i < dbm.idCount; i++) {
 			if(dbm.foods.get(i) != null && dbm.foods.get(i).getName().toLowerCase().contains(input.toLowerCase())) {
-				listFoodItems.add(dbm.foods.get(i).toFileFormat());
+				listFoodItems.add(dbm.foods.get(i).display());
 			}
 		}
 	}
@@ -1008,25 +982,16 @@ public class Foodi {
 		}
 
 
-		//		String[] food = listFoodItems.getItems();
-		//		for(int i = 0; i < food.length; i++) {
-		//			System.out.println(food[i]);
-		//		}
+		String[] foodlist = listFoodItems.getItems();
+		String temp;
 
-
-		FoodItem[] foodlist = convert();
-		FoodItem temp;
-
-		//		for(int i = 0; i < foodlist.length; i++) {
-		//			System.out.println(foodlist[i]);
-		//		}
-		//		
+		
 		switch (type) {
 		case 0:
 			// Name
 			for (int i = 0; i < foodlist.length; i++) {
 				for (int j = i + 1; j < foodlist.length; j++) {
-					if (foodlist[i].getName().toLowerCase().compareTo(foodlist[j].getName().toLowerCase()) > 0) {
+					if (foodlist[i].split("\t\t")[1].compareTo(foodlist[j].split("\t\t")[1]) > 0) {
 						temp = foodlist[i];
 						foodlist[i] = foodlist[j];
 						foodlist[j] = temp;
@@ -1038,7 +1003,9 @@ public class Foodi {
 			// Calories
 			for (int i = 0; i < foodlist.length; i++) {
 				for (int j = i + 1; j < foodlist.length; j++) {
-					if (foodlist[i].getCalories() > foodlist[j].getCalories()) {
+					int itemA = Integer.parseInt(foodlist[i].split("\t\t")[2].replace("Calories: ", ""));
+					int itemB = Integer.parseInt(foodlist[j].split("\t\t")[2].replace("Calories: ", ""));
+					if (itemA > itemB) {
 						temp = foodlist[i];
 						foodlist[i] = foodlist[j];
 						foodlist[j] = temp;
@@ -1050,7 +1017,7 @@ public class Foodi {
 			// Meal
 			for (int i = 0; i < foodlist.length; i++) {
 				for (int j = i + 1; j < foodlist.length; j++) {
-					if (foodlist[i].getMeal().toLowerCase().compareTo(foodlist[j].getMeal().toLowerCase()) > 0) {
+					if (foodlist[i].split("\t\t")[3].compareTo(foodlist[j].split("\t\t")[3]) > 0) {
 						temp = foodlist[i];
 						foodlist[i] = foodlist[j];
 						foodlist[j] = temp;
@@ -1062,7 +1029,7 @@ public class Foodi {
 			// Popularity
 			for (int i = 0; i < foodlist.length; i++) {
 				for (int j = i + 1; j < foodlist.length; j++) {
-					if (foodlist[i].getRank() > foodlist[j].getRank()) {
+					if (dbm.foods.get(Integer.parseInt(foodlist[i].split("\t\t")[0])).getRank() > dbm.foods.get(Integer.parseInt(foodlist[j].split("\t\t")[0])).getRank()) {
 						temp = foodlist[i];
 						foodlist[i] = foodlist[j];
 						foodlist[j] = temp;
@@ -1074,43 +1041,11 @@ public class Foodi {
 
 		listFoodItems.removeAll();
 
-		//		for (int i = 0; i < foodlist.length; i++) {
-		//			System.out.println(foodlist[i]);
-		//		}
-
 		for (int i = 0; i < foodlist.length; i++) {
-
-
-
-			listFoodItems.add(foodlist[i].toFileFormat());
+			listFoodItems.add(foodlist[i]);
 		}
 	}
 
-	protected FoodItem[] convert() {
-		String[] temp = listFoodItems.getItems();
-		FoodItem[] result = new FoodItem[temp.length];
-
-
-
-		for (int i = 0; i < temp.length; i++) {
-			String[] format = temp[i].split("\t");
-			System.out.println(format[0]);
-			if (format[0].contains("Dessert")) {
-				result[i] = new Dessert(Integer.parseInt(format[1]), format[2], Integer.parseInt(format[3]), Integer.parseInt(format[4]), format[5], format[6], format[7]);
-			}
-			else if (format[0].contains("Appetizer")) {
-				result[i] = new Appetizer(Integer.parseInt(format[1]), format[2], Integer.parseInt(format[3]), Integer.parseInt(format[4]), format[5], format[6], format[7]);
-			}
-			else if (format[0].contains("Entree")) {
-				result[i] = new Entree(Integer.parseInt(format[1]), format[2], Integer.parseInt(format[3]), Integer.parseInt(format[4]), format[5], format[6], format[7]);
-			}
-			else {
-				result[i] = new Beverage(Integer.parseInt(format[1]), format[2], Integer.parseInt(format[3]), Integer.parseInt(format[4]), format[5], format[6], format[7], 0);
-			}
-		}
-
-		return result;
-	}
 }
 
 
