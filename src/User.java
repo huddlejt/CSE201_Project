@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class User {
 	private String username;
 	private String password;
-	private ArrayList<Long> library = new ArrayList<>();
+	private ArrayList<Integer> library = new ArrayList<>();
 	
 	public User (String username, String password) {
 		setUsername(username);
@@ -12,6 +12,11 @@ public class User {
 	
 	public User() {
 		this("","");
+	}
+
+	public User(String string, String string2, String string3) {
+		this(string, string2);
+		setLibrary(string3.split(","));
 	}
 
 	// =================== Getters/Setters =======================================
@@ -28,8 +33,22 @@ public class User {
 		this.password = password;
 	}
 	
-	public void setLibrary(ArrayList<Long> library) {
+	public ArrayList<Integer> getLibrary() {
+		return library;	
+	}
+	
+	public void setLibrary(ArrayList<Integer> library) {
 		this.library = library;
+	}
+	
+	private void setLibrary(String[] split) {
+		for(String s : split) {
+			try {
+				library.add(Integer.parseInt(s));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	// =================== equals =============================================
@@ -53,7 +72,7 @@ public class User {
 	
 	// ==================== user library mgmt =================================
 	
-	public boolean saveToLibrary(long id) {
+	public boolean saveToLibrary(int id) {
 		if (library.contains(id)) {
 			return false;
 		}
@@ -74,9 +93,7 @@ public class User {
 		}
 	}
 
-	// converts the user's library to a comma separated list
-	@Override
-	public String toString() {
+	public String exportLibrary() {
 		String result = "";
 		for(int i = 0; i < library.size(); i++) {
 			if(i == library.size() - 1) {
@@ -88,9 +105,18 @@ public class User {
 		}
 		return result;
 	}
+	// converts the user's library to a comma separated list
+	@Override
+	public String toString() {
+		return toJSON();
+	}
+	
+	public boolean containsItem(long id) {
+		return library.contains(id);
+	}
 	
 	public String toJSON() {
-		String json = "\nUser\t" + getUsername() + "\t" + getPassword() + "\t" + toString();
+		String json = "\nUser\t" + getUsername() + "\t" + getPassword() + "\t" + exportLibrary();
 		return json;
 	}
 }
