@@ -4,6 +4,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import java.awt.Color;
 import javax.swing.JButton;
@@ -102,7 +103,6 @@ public class Foodi {
 	 */
 	public Foodi() {
 		initialize();
-		testPopulate();
 	}
 
 	/**
@@ -326,11 +326,12 @@ public class Foodi {
 				JFrame createframe = new JFrame();
 				createframe.setBackground(Color.WHITE);
 				createframe.setBounds(100, 100, 650, 400);
-				createframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				createframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				createframe.getContentPane().setLayout(null);
 				createframe.setAlwaysOnTop(true);
-				JScrollPane faqs = new JScrollPane();
-				faqs.setBounds(50, 50, 500, 350);
+				JScrollPane faqs = new JScrollPane(new JTextArea("ABC\nD\nABC\nD\nABC\nD\nABC\nD\n"
+						+ "ABC\nD\nABC\nD\nABC\nD\nABC\nD\nABC\nD\nABC\nD\nABC\nD\nABC\nD"));
+				faqs.setBounds(50, 50, 500, 300);
 				JButton exit = new JButton("Exit");
 				exit.setBounds(20, 20, 50, 30);
 				exit.addActionListener(new ActionListener() {
@@ -341,9 +342,6 @@ public class Foodi {
 						
 					}
 				});
-				JTextField content = new JTextField("THIS WILL BE FAQS");
-				content.setBounds(0, 0, 475, 300);
-				faqs.add(content);
 				createframe.getContentPane().add(faqs);
 				createframe.getContentPane().add(exit);
 				createframe.setVisible(true);
@@ -674,11 +672,12 @@ public class Foodi {
 
 
 	}
+	
 	protected void newPassword(JFrame loginframe) {
 		JFrame createframe = new JFrame();
 		createframe.setBackground(Color.WHITE);
 		createframe.setBounds(100, 100, 650, 400);
-		createframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		createframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		createframe.getContentPane().setLayout(null);
 		createframe.setAlwaysOnTop(true);
 		
@@ -788,7 +787,7 @@ public class Foodi {
 		JFrame loginframe = new JFrame();
 		loginframe.setBackground(Color.WHITE);
 		loginframe.setBounds(100, 100, 650, 400);
-		loginframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		loginframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		loginframe.getContentPane().setLayout(null);
 		loginframe.setAlwaysOnTop(true);
 
@@ -863,7 +862,7 @@ public class Foodi {
 		JFrame createframe = new JFrame();
 		createframe.setBackground(Color.WHITE);
 		createframe.setBounds(100, 100, 650, 400);
-		createframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		createframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		createframe.getContentPane().setLayout(null);
 		createframe.setAlwaysOnTop(true);
 		
@@ -952,16 +951,6 @@ public class Foodi {
 
 
 	}
-
-	///pre populates allFoods
-	private void testPopulate() {
-		int i = 0;
-		for(int k : dbm.foods.keySet()) {
-			foods[i] = (dbm.foods.get(k));
-			i++;
-		}
-	}
-
 
 	protected void search(String input) {
 		if(!(foodPanel.isVisible()) ) {
