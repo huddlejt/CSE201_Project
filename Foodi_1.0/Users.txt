@@ -1,0 +1,6 @@
+
+User	a	a	-1,2,4,29,0,7,3,27,6,8
+User	abc	123	-1
+Admin	Root	P@SsW0rD!	-1
+User	test	1	1,4
+User	me	123	-1,24,19,17

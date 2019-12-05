@@ -1,0 +1,29 @@
+
+Beverage	0	b	1	0	www.zuck.com	5min	Lunch	69
+Appetizer	1	bread	1	11	just bread	45min	BLD
+Entree	2	Food	1	11	just food	45min	BLD
+Appetizer	3	C	2	2400	www.badprogramming.com	1hr	Dinner
+Appetizer	4	A	0	12	www.zuckit.com	5min	Bekfast
+Appetizer	5	B	1	10	www.example.com	8min	Lunch
+Appetizer	6	app	2	100	asdf.com	2min	All
+Dessert	7	icecream	100	1000	www.icecream.com	2min	dinner
+Dessert	8	cake	1	50	cake	30min	All
+Dessert	9	big cake	1	800	cake	30min	All
+Appetizer	10	entree	3	100	jkl.com	4min	All
+Appetizer	13	uhhh	0	2	www.uhh.com	1213	Breakfast
+Dessert	14	null	0	0	null	null	null
+Appetizer	15	bread	1	11	just bread	45min	BLD
+Appetizer	16	Food	1	11	just food	45min	BLD
+Beverage	17	b	1	0	www.zuckit.com	5min	Lunch	69
+Appetizer	18	A	0	12	www.zuckit.com	5min	Bekfast
+Entree	19	B	1	10	www.example.com	8min	Lunch
+Entree	20	C	2	2400	www.badprogramming.com	1hr	Dinner
+Beverage	21	water	1	0			All	0
+Appetizer	22	app	2	100	asdf.com	2min	All
+Dessert	23	more cake	1	50	cake	30min	All
+Entree	24	entree3	3	100	jkl.com	4min	All
+Appetizer	25	new food	0	100000	www.food.com	78hours	Lunch
+Dessert	26	Test	0	1090	www.test.com	0min	Any
+Appetizer	27	abc	0	12	www	2 min	Any
+Dessert	28	Chocolate cake	0	205	www.ex.com	1 hour	Dinner
+Entree	29	Delicious Mac and Cheese	0	1200	www.macrecipes.com	1hr 30min	Dinner
