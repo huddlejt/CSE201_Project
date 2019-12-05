@@ -325,7 +325,7 @@ public class Foodi {
 			public void actionPerformed(ActionEvent e) {
 				JFrame createframe = new JFrame();
 				createframe.setBackground(Color.WHITE);
-				createframe.setBounds(100, 100, 650, 400);
+				createframe.setBounds(frame.getX(), frame.getY(), 650, 400);
 				createframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				createframe.getContentPane().setLayout(null);
 				createframe.setAlwaysOnTop(true);
@@ -366,7 +366,7 @@ public class Foodi {
 	protected void createForm() {
 		JFrame createframe = new JFrame();
 		createframe.setBackground(Color.WHITE);
-		createframe.setBounds(100, 100, 650, 400);
+		createframe.setBounds(frame.getX(), frame.getY(), 650, 400);
 		createframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		createframe.getContentPane().setLayout(null);
 		createframe.setAlwaysOnTop(true);
@@ -604,8 +604,8 @@ public class Foodi {
 		else {
 			JFrame accountframe = new JFrame();
 			accountframe.setBackground(Color.WHITE);
-			accountframe.setBounds(100, 100, 650, 400);
-			accountframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			accountframe.setBounds(frame.getX(), frame.getY(), 650, 400);
+			accountframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			accountframe.getContentPane().setLayout(null);
 			accountframe.setAlwaysOnTop(true);
 
@@ -676,7 +676,7 @@ public class Foodi {
 	protected void newPassword(JFrame loginframe) {
 		JFrame createframe = new JFrame();
 		createframe.setBackground(Color.WHITE);
-		createframe.setBounds(100, 100, 650, 400);
+		createframe.setBounds(frame.getX(), frame.getY(), 650, 400);
 		createframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		createframe.getContentPane().setLayout(null);
 		createframe.setAlwaysOnTop(true);
@@ -752,7 +752,7 @@ public class Foodi {
 	private void displayWarning(String string) {
 		JFrame warningframe = new JFrame();
 		warningframe.setBackground(Color.WHITE);
-		warningframe.setBounds(300, 200, 200, 200);
+		warningframe.setBounds(frame.getX() + 200, frame.getY() + 100, 200, 200);
 		warningframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		warningframe.getContentPane().setLayout(null);
 		warningframe.setAlwaysOnTop(true);
@@ -786,7 +786,7 @@ public class Foodi {
 		//open new window
 		JFrame loginframe = new JFrame();
 		loginframe.setBackground(Color.WHITE);
-		loginframe.setBounds(100, 100, 650, 400);
+		loginframe.setBounds(frame.getX(), frame.getY(), 650, 400);
 		loginframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		loginframe.getContentPane().setLayout(null);
 		loginframe.setAlwaysOnTop(true);
@@ -861,7 +861,7 @@ public class Foodi {
 	protected void newAccount(JFrame loginframe) {
 		JFrame createframe = new JFrame();
 		createframe.setBackground(Color.WHITE);
-		createframe.setBounds(100, 100, 650, 400);
+		createframe.setBounds(frame.getX(), frame.getY(), 650, 400);
 		createframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		createframe.getContentPane().setLayout(null);
 		createframe.setAlwaysOnTop(true);
