@@ -268,6 +268,9 @@ public class Foodi {
 					String str = listFoodItems.getSelectedItem();
 					String[] parts = str.split("\t");
 					currentUser.saveToLibrary(Integer.parseInt(parts[0]));
+					
+					dbm.foods.get(Integer.parseInt(parts[0])).setRank(dbm.foods.get(Integer.parseInt(parts[0])).getRank() + 1);
+					dbm.update(0);
 					//update references
 					dbm.users.put(currentUser.getUsername(), currentUser);
 					dbm.update(1);
@@ -329,8 +332,19 @@ public class Foodi {
 				createframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				createframe.getContentPane().setLayout(null);
 				createframe.setAlwaysOnTop(true);
-				JScrollPane faqs = new JScrollPane(new JTextArea("ABC\nD\nABC\nD\nABC\nD\nABC\nD\n"
-						+ "ABC\nD\nABC\nD\nABC\nD\nABC\nD\nABC\nD\nABC\nD\nABC\nD\nABC\nD"));
+				JScrollPane faqs = new JScrollPane(new JTextArea("FAQ’s\n" + 
+						"\n" + 
+						"How do I create an account?\n" + 
+						"\tYou will need to click on the “Create Account” button.\n\tThis will then display the create account window. From there you will\n\tneed to create a username and password. The passwords will need to match in order for your\n\taccount to be correctly created within our system.\n" + 
+						"Once I have created an account and I close the window how do I log in?\n" + 
+						"\tYou will need to come back and click the “login” button.\n\tThis will open the login window that then will require you to input\n\tyour correct username and password.\n" + 
+						"Why can’t I see the homepage?\n" + 
+						"\tYou need to login for this to display. Please refer back\n\tto #1 and #2.  \n" + 
+						"How do I display a recipe?\n" + 
+						"\tYou will want to select the type of food you are looking\n\tby clicking on one of the buttons in the top screen. From there you can\n\tclick on the specific item you are looking for. This will open up a detailed view of the selected item.\n" + 
+						"How do I save one of the recipes for later?\n" + 
+						"\tOnce you open the detailed view of the item you can click\n\tadd to your library and it will save this recipe within your account\n" + 
+						""));
 				faqs.setBounds(50, 50, 500, 300);
 				JButton exit = new JButton("Exit");
 				exit.setBounds(20, 20, 50, 30);
@@ -817,6 +831,9 @@ public class Foodi {
 					currentUser = dbm.users.get(usernameField.getText());
 					loginframe.dispose();
 				}
+				else {
+					displayWarning("Invalid credentials!");
+				}
 
 			}
 		});
@@ -1018,7 +1035,7 @@ public class Foodi {
 			// Popularity
 			for (int i = 0; i < foodlist.length; i++) {
 				for (int j = i + 1; j < foodlist.length; j++) {
-					if (dbm.foods.get(Integer.parseInt(foodlist[i].split("\t\t")[0])).getRank() > dbm.foods.get(Integer.parseInt(foodlist[j].split("\t\t")[0])).getRank()) {
+					if (dbm.foods.get(Integer.parseInt(foodlist[i].split("\t\t")[0])).getRank() < dbm.foods.get(Integer.parseInt(foodlist[j].split("\t\t")[0])).getRank()) {
 						temp = foodlist[i];
 						foodlist[i] = foodlist[j];
 						foodlist[j] = temp;
